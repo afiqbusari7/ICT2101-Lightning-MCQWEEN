@@ -1,1 +1,0 @@
-# ICT2101-Lightning-MCQWEEN
