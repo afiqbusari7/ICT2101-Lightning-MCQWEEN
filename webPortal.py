@@ -2,7 +2,7 @@ import requests
 from flask import Flask, render_template, flash, redirect, url_for, session, logging, request
 from data import Articles
 from flask_mysqldb import MySQL
-from wtforms import Form, StringField, TextAreaField, PasswordField, validators, RadioField, EmailField
+from wtforms import Form, StringField, TextAreaField, PasswordField, validators, RadioField, EmailField,IntegerField
 from passlib.hash import sha256_crypt
 
 app = Flask(__name__)
@@ -48,8 +48,8 @@ class RegisterForm(Form):
                               validators.EqualTo('confirm', message='Passwords do not match')
                               ])
     confirm = PasswordField('Confirm Password')
-    accountType = StringField('accountType', [validators.Length(min=1, max=1)])
-    accountStatus = StringField('accountStatus', [validators.Length(min=1, max=1)])
+    accountType = IntegerField('AccountType', [validators.number_range(min=1,max=1,message="Only 1 is allowed")])
+    accountStatus = IntegerField('AccountStatus',[validators.number_range(min=0,max=1,message="Only 1 is allowed")])
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -61,9 +61,11 @@ def register():
         accountType = form.accountType.data
         accountStatus = form.accountStatus.data
 
+
         # Create Cursor
         cur = mysql.connection.cursor()
         email_value = cur.execute("SELECT email FROM admin WHERE email=%s", [email])
+
         if email_value > 0:
             flash("User is already registered", 'success')
             redirect(url_for('index'))
@@ -72,7 +74,7 @@ def register():
 
         else:
             cur.execute("INSERT INTO admin(email,password,accountType,accountStatus) VALUES(%s, %s,%s,%s)",
-                        (email, password, accountType, accountStatus))
+                        (email, password, accountType,accountStatus))
 
         # Commit to DB
         mysql.connection.commit()
