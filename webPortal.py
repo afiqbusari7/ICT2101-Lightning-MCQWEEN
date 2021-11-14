@@ -1,8 +1,10 @@
+from functools import wraps
+import mysql.connector
 import requests
 from flask import Flask, render_template, flash, redirect, url_for, session, logging, request
 from data import Articles
 from flask_mysqldb import MySQL
-from wtforms import Form, StringField, TextAreaField, PasswordField, validators, RadioField, EmailField,IntegerField
+from wtforms import Form, StringField, TextAreaField, PasswordField, validators, RadioField, EmailField, IntegerField
 from passlib.hash import sha256_crypt
 
 app = Flask(__name__)
@@ -48,10 +50,11 @@ class RegisterForm(Form):
                               validators.EqualTo('confirm', message='Passwords do not match')
                               ])
     confirm = PasswordField('Confirm Password')
-    accountType = IntegerField('AccountType', [validators.number_range(min=1,max=1,message="Only 1 is allowed")])
-    accountStatus = IntegerField('AccountStatus',[validators.number_range(min=0,max=1,message="Only 1 is allowed")])
+    accountType = IntegerField('AccountType', [validators.number_range(min=1, max=1, message="Only 1 is allowed")])
+    accountStatus = IntegerField('AccountStatus', [validators.number_range(min=0, max=1, message="Only 1 is allowed")])
 
 
+# Admin register  form class
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm(request.form)
@@ -60,7 +63,6 @@ def register():
         password = sha256_crypt.encrypt(str(form.password.data))
         accountType = form.accountType.data
         accountStatus = form.accountStatus.data
-
 
         # Create Cursor
         cur = mysql.connection.cursor()
@@ -74,7 +76,7 @@ def register():
 
         else:
             cur.execute("INSERT INTO admin(email,password,accountType,accountStatus) VALUES(%s, %s,%s,%s)",
-                        (email, password, accountType,accountStatus))
+                        (email, password, accountType, accountStatus))
 
         # Commit to DB
         mysql.connection.commit()
@@ -84,8 +86,143 @@ def register():
 
         flash("User is Registered", 'success')
 
-        redirect(url_for('index'))
+        redirect(url_for('login'))
     return render_template('register.html', form=form)
+
+
+# user login
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        # Get Form Fields
+        email = request.form['email']
+        password_candidate = request.form['password']
+        # Create Cursor
+        cur = mysql.connection.cursor()
+
+        # Get email
+        result = cur.execute("SELECT * FROM admin WHERE email = %s", [email])
+        if result > 0:
+            # Get stored hash
+            data = cur.fetchone()
+            password = data['password']
+
+            # Compare Password
+            if sha256_crypt.verify(password_candidate, password):
+                app.logger.info('PASSWORD MATCHED')
+                # Pass
+                session['logged_in'] = True
+                session['email'] = email
+                flash('You are now logged in', 'success')
+                return redirect((url_for('dashboard')))
+            else:
+                error = 'Invalid Login'
+                return render_template('login.html', error=error)
+            # Close Connection
+            cur.close()
+        else:
+            error = 'Invalid email'
+            return render_template('login.html', error=error)
+
+    return render_template('login.html')
+
+
+# Check if user logged in
+def is_logged_in(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash('Unauthorized, Please login', 'danger')
+            return redirect(url_for('login'))
+
+    return wrap
+
+
+# Logout
+@app.route('/logout')
+@is_logged_in
+def logout():
+    session.clear()
+    flash('You are now logged out ', 'success')
+    return redirect(url_for('login'))
+
+
+# Dashboard
+@app.route('/dashboard')
+@is_logged_in
+def dashboard():
+    # Create cursor
+    cur = mysql.connection.cursor()
+
+    # Show articles only from the user logged in
+    result = cur.execute("SELECT * FROM admin")
+
+    adminDetails = cur.fetchall()
+
+    if result > 0:
+        return render_template('dashboard.html', data=adminDetails)
+    else:
+        msg = 'No Articles Found'
+        return render_template('dashboard.html', msg=msg)
+    # Close connection
+    cur.close()
+
+
+# Edit Admin Form Class
+class EditAdminForm(Form):
+    email = StringField('Email', [validators.Email()])
+    password = PasswordField('Password',
+                             [validators.DataRequired(),
+                              validators.EqualTo('confirm', message='Passwords do not match')
+                              ])
+    confirm = PasswordField('Confirm Password')
+    accountType = IntegerField('AccountType', [validators.number_range(min=1, max=1, message="Only 1 is allowed")])
+    accountStatus = IntegerField('AccountStatus', [validators.number_range(min=0, max=1, message="Only 1 is allowed")])
+
+
+# Edit Article
+@app.route('/edit_admin/<string:id>', methods=['GET', 'POST'])
+@is_logged_in
+def edit_admin(id):
+    # Create cursor
+    cur = mysql.connection.cursor()
+
+    # Get article by id
+    result = cur.execute("SELECT * FROM admin WHERE adminID = %s", [id])
+    admin = cur.fetchone()
+    cur.close()
+    # Get form
+    form = EditAdminForm(request.form)
+
+    # Populate article form fields
+    form.email.data = admin['email']
+    form.accountStatus.data = admin['accountStatus']
+    form.accountType.data = admin['accountType']
+
+    if request.method == 'POST' and form.validate():
+        email = request.form['email']
+        password = request.form['password']
+        accountStatus = request.form['accountStatus']
+        accountType = request.form['accountType']
+
+        # Create Cursor
+        cur = mysql.connection.cursor()
+        app.logger.info(email)
+        # Execute
+        cur.execute("UPDATE admin SET email=%s,password=%s, accountStatus= %s , accountType WHERE id=%s", (email,password,accountType,accountStatus))
+        # Commit to DB
+        mysql.connection.commit()
+
+        # Close connection
+        cur.close()
+
+
+        flash('Profile Updated', 'success')
+
+        return redirect(url_for('dashboard'))
+    return render_template('edit_admin.html', form=form)
 
 
 if __name__ == '__main__':
