@@ -85,7 +85,7 @@ def register():
                 cur.execute("INSERT INTO admin(email, password, accountType, accountStatus) VALUES(%s, %s,%s,%s)",
                             (email, password, accountType, accountStatus))
         else:
-            email_value = cur.execute("SELECT email FROM Student WHERE email=%s", [email])
+            email_value = cur.execute("SELECT email FROM student WHERE email=%s",  [session['email']])
 
             if email_value > 0:
                 flash("User is already registered", 'success')
