@@ -34,6 +34,11 @@ def about():
     return render_template('about.html')
 
 
+@app.route('/blocklytest')
+def test():
+    return render_template('blocklytest.html')
+
+
 @app.route('/articles')
 def articles():
     return render_template('articles.html', articles=Articles)
