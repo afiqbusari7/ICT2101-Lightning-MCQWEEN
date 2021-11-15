@@ -290,14 +290,17 @@ def student_dashboard():
     cur.close()
 
 @app.route('/learningPage')
+@is_logged_in
 def learningPage():
     return render_template('learningPage.html')
 
 @app.route('/quizPage')
+@is_logged_in
 def quizPage():
     return render_template('quizPage.html')
 
 @app.route('/freestylePage')
+@is_logged_in
 def freestylePage():
     return render_template('freestylePage.html')
 
