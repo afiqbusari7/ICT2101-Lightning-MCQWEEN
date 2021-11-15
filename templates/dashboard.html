@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h1>Dashboard </h1>
+<small> Welcome {{session.email}}</small>
+  <hr>
+  <table class="table table-striped">
+    <tr>
+      <th>adminID</th>
+      <th>email</th>
+      <th>accountType(1 is admin)</th>
+      <th>accountStatus(1 is active 0 is inactive)</th>
+      <th></th>
+      <th></th>
+    </tr>
+    {% for details in data %}
+      <tr>
+        <td>{{details.adminID}}</td>
+        <td>{{details.email}}</td>
+        <td>{{details.accountType}}</td>
+        <td>{{details.accountStatus}}</td>
+        <td><a href="/edit_admin/{{details.adminID}}" class="btn btn-default pull-right">Edit</a></td>
+
+        <td>
+
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
