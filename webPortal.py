@@ -14,7 +14,7 @@ app.config['SECRET_KEY'] = 'secret123'
 # Config MySQL
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Password123!'
+app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'mydb'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 # init MYSQL
@@ -277,14 +277,14 @@ def student_dashboard():
     cur = mysql.connection.cursor()
 
     # Show articles only from the user logged in
-    result = cur.execute("SELECT * FROM Student where email='rainyy@gmail.com'")
+    result = cur.execute("SELECT * FROM student where email= %s",[session['email']])
 
     studentDetails = cur.fetchall()
 
     if result > 0:
         return render_template('student_dashboard.html', data=studentDetails)
     else:
-        msg = 'No Articles Found'
+        msg = 'No Student Found'
         return render_template('student_dashboard.html', msg=msg)
     # Close connection
     cur.close()
