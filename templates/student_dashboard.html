@@ -1,0 +1,29 @@
+{% extends 'dashboard_base.html' %}
+
+{% block body %}
+<small> Welcome {{session.email}}</small>
+    <hr>
+    <table class="table table-striped" style="width: 1000px; margin-left: auto;
+margin-right: auto; text-align: left;">
+    <tr>
+      <th>studentID</th>
+      <th>email</th>
+      <th>Quiz Score</th>
+      <th>Tutorial Progress</th>
+      <th></th>
+      <th></th>
+    </tr>
+    {% for details in data %}
+      <tr>
+        <td>{{details.studentID}}</td>
+        <td>{{details.email}}</td>
+        <td>{{details.quizScore}}</td>
+        <td>{{details.tutorialProgress}}</td>
+
+        <td>
+
+        </td>
+      </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
