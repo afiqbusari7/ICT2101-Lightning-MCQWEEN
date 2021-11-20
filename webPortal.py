@@ -347,7 +347,10 @@ def edit_accounts(id):
 def update_account(id):
     # Create cursor
     cur = mysql.connection.cursor()
-    result = cur.execute("UPDATE student SET accountStatus = 0 WHERE studentID=%s",  [id])
+    if id == 0:
+        result = cur.execute("UPDATE student SET accountStatus = 0 WHERE studentID=%s",  [id])
+    else:
+        result = cur.execute("UPDATE student SET accountStatus = 1 WHERE studentID=%s", [id])
     # Commit to DB
     mysql.connection.commit()
     # Close connection

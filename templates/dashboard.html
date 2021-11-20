@@ -22,6 +22,9 @@
         {% if details.accountStatus == 1 %}
           <td><a href="/update_accounts/{{details.studentID}}" class="btn btn-danger pull-right">Deactivate Account</a></td>
         {% endif %}
+            {% if details.accountStatus == 0 %}
+          <td><a href="/update_accounts/{{details.studentID}}" class="btn btn-danger pull-right">Activate Account</a></td>
+        {% endif %}
         <td><a href="/edit_accounts/{{details.studentID}}" class="btn btn-success pull-right">Edit</a></td>
       </tr>
     {% endfor %}
