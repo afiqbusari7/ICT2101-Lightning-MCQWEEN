@@ -69,15 +69,14 @@ def register():
         password = sha256_crypt.encrypt(str(form.password.data))
         accountType = form.accountType.data
         accountStatus = form.accountStatus.data
-        quizScore =0
+        quizScore = 0
         quizProgress = 0
         tutorialProgress = 0
-
 
         # Create Cursor
         cur = mysql.connection.cursor()
 
-        if accountType==1: #admin
+        if accountType == 1:  # admin
             email_value = cur.execute("SELECT email FROM admin WHERE email=%s", [email])
 
             if email_value > 0:
@@ -99,8 +98,9 @@ def register():
 
 
             else:
-                cur.execute("INSERT INTO Student(email, password, accountType, accountStatus, quizScore, quizProgress,tutorialProgress) VALUES (%s,%s,%s,%s,%s,%s,%s)",
-                            (email, password, accountType, accountStatus, quizScore, quizProgress, tutorialProgress))
+                cur.execute(
+                    "INSERT INTO Student(email, password, accountType, accountStatus, quizScore, quizProgress,tutorialProgress) VALUES (%s,%s,%s,%s,%s,%s,%s)",
+                    (email, password, accountType, accountStatus, quizScore, quizProgress, tutorialProgress))
 
         # Commit to DB
         mysql.connection.commit()
@@ -134,7 +134,7 @@ def login():
         if result > 0:
             # Get stored hash
             data = cur1.fetchone()
-            print("data:",data)
+            print("data:", data)
             print(data['password'])
             password = data['password']
             accType = data['accountType']
@@ -160,7 +160,7 @@ def login():
         elif result_student > 0:
             # Get stored hash
             data = cur.fetchone()
-            print("data:",data)
+            print("data:", data)
             password = data['password']
             accType = data['accountType']
             accStatus = data['accountStatus']
@@ -197,6 +197,7 @@ def is_logged_in(f):
         else:
             flash('Unauthorized, Please login', 'danger')
             return redirect(url_for('login'))
+
     return wrap
 
 
@@ -208,6 +209,7 @@ def is_admin(f):
             return f(*args, **kwargs)
         else:
             return redirect(url_for('student_dashboard'))
+
     return wrap
 
 
@@ -293,50 +295,35 @@ def dashboard():
 
 # Edit Student Form Class
 class EditAccountForm(Form):
-    email = StringField('Email', [validators.Email()])
+    # email = StringField('Email', [validators.Email()])
     password = PasswordField('Password',
                              [validators.DataRequired(),
                               validators.EqualTo('confirm', message='Passwords do not match')
                               ])
     confirm = PasswordField('Confirm Password')
-    accountType = IntegerField('AccountType', [validators.number_range(min=0, max=0, message="Only 0 is allowed")])
-    accountStatus = IntegerField('AccountStatus', [validators.number_range(min=0, max=1, message="Only 1 is allowed")])
+    # accountType = IntegerField('AccountType', [validators.number_range(min=0, max=0, message="Only 0 is allowed")])
+    # accountStatus = IntegerField('AccountStatus', [validators.number_range(min=0, max=1, message="Only 1 is allowed")])
 
 
-# Edit Article
+# Edit Accounts
 @app.route('/edit_accounts/<string:id>', methods=['GET', 'POST'])
 @is_logged_in
 @is_admin
 def edit_accounts(id):
     # Create cursor
-    cur = mysql.connection.cursor()
-
-    # Get article by id
-    result = cur.execute("SELECT studentID,email,accountType,accountStatus FROM student WHERE studentID = %s", [id])
-    admin = cur.fetchone()
-    cur.close()
-    # Get form
     form = EditAccountForm(request.form)
-
-    # Populate article form fields
-    form.email.data = admin['email']
-
+    cur = mysql.connection.cursor()
+    result = cur.execute("SELECT * FROM student WHERE studentID = %s", [id])
+    admin = cur.fetchone()
     if request.method == 'POST' and form.validate():
-        email = request.form['email']
-        password = request.form['password']
-
-        # Create Cursor
-        cur = mysql.connection.cursor()
-        app.logger.info(email)
-        # Execute
-        cur.execute("UPDATE student SET email=%s,password=%s WHERE studentID=%s", (email, password, [id]))
+        password = sha256_crypt.encrypt(str(form.password.data))
+        cur.execute("UPDATE student SET password=%s WHERE studentID=%s", (password, [id]))
         # Commit to DB
         mysql.connection.commit()
 
-        # Close connection
+        # Close Connection
         cur.close()
-        flash('Profile Updated', 'success')
-
+        flash('Password Updated', 'success')
         return redirect(url_for('dashboard'))
     return render_template('edit_accounts.html', form=form)
 
@@ -347,10 +334,13 @@ def edit_accounts(id):
 def update_account(id):
     # Create cursor
     cur = mysql.connection.cursor()
-    if id == 0:
-        result = cur.execute("UPDATE student SET accountStatus = 0 WHERE studentID=%s",  [id])
-    else:
+    cur.execute("SELECT * FROM student WHERE studentID = %s", [id])
+    record = cur.fetchone()
+    if (record['accountStatus']) == 0:
         result = cur.execute("UPDATE student SET accountStatus = 1 WHERE studentID=%s", [id])
+    else:
+        result = cur.execute("UPDATE student SET accountStatus = 0 WHERE studentID=%s", [id])
+
     # Commit to DB
     mysql.connection.commit()
     # Close connection
@@ -367,7 +357,7 @@ def student_dashboard():
     cur = mysql.connection.cursor()
 
     # Show articles only from the user logged in
-    result = cur.execute("SELECT * FROM student where email= %s",[session['email']])
+    result = cur.execute("SELECT * FROM student where email= %s", [session['email']])
 
     studentDetails = cur.fetchall()
 
@@ -390,6 +380,7 @@ def learningPage():
 @is_logged_in
 def quizPage():
     return render_template('quizPage.html')
+
 
 @app.route('/freestylePage')
 @is_logged_in
