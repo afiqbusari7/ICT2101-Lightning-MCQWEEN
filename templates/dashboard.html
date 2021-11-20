@@ -6,25 +6,41 @@
   <hr>
   <table class="table table-striped">
     <tr>
-      <th>adminID</th>
+      <th>studentID</th>
       <th>email</th>
-      <th>accountType(1 is admin)</th>
-      <th>accountStatus(1 is active 0 is inactive)</th>
+      <th>accountType[1=admin]</th>
+      <th>accountStatus[1=active]</th>
       <th></th>
       <th></th>
     </tr>
     {% for details in data %}
       <tr>
-        <td>{{details.adminID}}</td>
+        <td>{{details.studentID}}</td>
         <td>{{details.email}}</td>
         <td>{{details.accountType}}</td>
         <td>{{details.accountStatus}}</td>
-        <td><a href="/edit_admin/{{details.adminID}}" class="btn btn-default pull-right">Edit</a></td>
-
-        <td>
-
-        </td>
+        {% if details.accountStatus == 1 %}
+          <td><a href="/update_accounts/{{details.studentID}}" class="btn btn-danger pull-right">Deactivate Account</a></td>
+        {% endif %}
+        <td><a href="/edit_accounts/{{details.studentID}}" class="btn btn-success pull-right">Edit</a></td>
       </tr>
     {% endfor %}
   </table>
+  <h1>Add Account</h1>
+  {% from "includes/_formhelpers.html" import render_field %}
+  <form method="POST" action="">
+    <div class="form-group">
+      {{render_field(form.email, class_="form-control")}}
+    </div>
+    <div class="form-group">
+      {{render_field(form.password, class_="form-control")}}
+    </div>
+    <div class="form-group">
+      {{render_field(form.confirm, class_="form-control")}}
+    </div>
+    <div class="form-group">
+      {{render_field(form.accountType , class_="form-control")}}
+    </div>
+    <p><input type="submit" class="btn btn-primary" value="Submit"></p>
+  </form>
 {% endblock %}
