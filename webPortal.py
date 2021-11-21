@@ -1,4 +1,6 @@
 from functools import wraps
+import os
+from werkzeug.utils import secure_filename
 import mysql.connector
 import requests
 from flask import Flask, render_template, flash, redirect, url_for, session, logging, request
@@ -9,6 +11,7 @@ from passlib.hash import sha256_crypt
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret123'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 # Config MYSQL
 # Config MySQL
@@ -32,11 +35,6 @@ def index():
 @app.route('/about')
 def about():
     return render_template('about.html')
-
-
-@app.route('/blocklytest')
-def test():
-    return render_template('blocklytest.html')
 
 
 @app.route('/articles')
@@ -80,7 +78,7 @@ def register():
             email_value = cur.execute("SELECT email FROM admin WHERE email=%s", [email])
 
             if email_value > 0:
-                flash("User is already registered", 'success')
+                flash("User is already registered", 'danger')
                 redirect(url_for('index'))
                 return render_template('register.html', form=form)
 
@@ -92,7 +90,7 @@ def register():
             email_value = cur.execute("SELECT email FROM student WHERE email=%s", [email])
 
             if email_value > 0:
-                flash("User is already registered", 'success')
+                flash("User is already registered", 'danger')
                 redirect(url_for('index'))
                 return render_template('register.html', form=form)
 
@@ -134,8 +132,8 @@ def login():
         if result > 0:
             # Get stored hash
             data = cur1.fetchone()
-            print("data:", data)
-            print(data['password'])
+            # print("data:", data)
+            # print(data['password'])
             password = data['password']
             accType = data['accountType']
             accStatus = data['accountStatus']
@@ -160,7 +158,7 @@ def login():
         elif result_student > 0:
             # Get stored hash
             data = cur.fetchone()
-            print("data:", data)
+            # print("data:", data)
             password = data['password']
             accType = data['accountType']
             accStatus = data['accountStatus']
@@ -261,7 +259,7 @@ def dashboard():
             if accountType == 0:
                 email_value = cur.execute("SELECT email FROM student WHERE email=%s", [email])
                 if email_value > 0:
-                    flash("User is already registered", 'success')
+                    flash("User is already registered", 'danger')
                     redirect(url_for('index'))
                     return render_template('register.html', form=form)
                 else:
@@ -271,7 +269,7 @@ def dashboard():
             else:
                 email_value = cur.execute("SELECT email FROM admin WHERE email=%s", [email])
                 if email_value > 0:
-                    flash("User is already registered", 'success')
+                    flash("User is already registered", 'danger')
                     redirect(url_for('index'))
                     return render_template('register.html', form=form)
                 else:
@@ -368,6 +366,75 @@ def student_dashboard():
         return render_template('student_dashboard.html', msg=msg)
     # Close connection
     cur.close()
+
+
+# Map Dashboard for admin
+@app.route('/mapDashboard')
+@is_logged_in
+@is_admin
+def mapDashboard():
+    # Lists the images in the static image folder for html
+    maps = os.listdir('static/image')
+    mapsList = ['image/' + file for file in maps]
+    return render_template('mapDashboard.html', maps=mapsList)
+
+# Function to check against allowed extensions
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+# Generates BLOB Data from image
+def mapToBinary(map):
+    with open(map,'rb') as file:
+        binaryData = file.read()
+    return binaryData
+
+
+# Uses BLOB Data to create map picture
+def write_file(data, filename):
+    with open(filename, 'wb') as file:
+        file.write(data)
+
+
+# Upload Map Function
+@app.route('/uploadMap', methods=['GET', 'POST'])
+@is_logged_in
+@is_admin
+def uploadMap():
+    if request.method == 'POST':
+        # Checks if there is a file being uploaded
+        if 'file' not in request.files:
+            flash('No file', 'danger')
+            return redirect(url_for('mapDashboard'))
+
+        f = request.files['file']
+        if f.filename == '':
+            flash('No Selected File', 'danger')
+            return redirect(url_for('mapDashboard'))
+        # Checks if extension is valid
+        if f and allowed_file(f.filename):
+            # Saves file into static/image folder and creates new map entry in db
+            f.save(os.path.join('static/image', secure_filename(f.filename)))
+            mapData = mapToBinary('static/image/'+f.filename)
+            # write_file(mapBLOB, 'static/image/'+f.filename)
+            mapName = f.filename
+            # Create Cursor
+            cur = mysql.connection.cursor()
+            cur.execute("INSERT INTO maps(mapData,mapName) VALUES(%s,%s)",
+                        (mapData, mapName))
+            # Commit to DB
+            mysql.connection.commit()
+            # Close Connection
+            cur.close()
+
+            flash("Map Uploaded", 'success')
+            return redirect(url_for('mapDashboard'))
+        else:
+            flash("Error Uploading Map", 'danger')
+            return redirect(url_for('mapDashboard'))
+    return redirect(url_for('mapDashboard'))
+
 
 
 @app.route('/learningPage')

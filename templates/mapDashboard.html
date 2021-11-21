@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% block body %}
+    <h1>Dashboard </h1>
+{% include 'includes/_adminsubnavbar.html' %}
+<style>
+* {
+  box-sizing: border-box;
+}
+
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+img {
+  border: 5px solid #555;
+}
+</style>
+<h1>Manage Maps</h1>
+<hr>
+    <div class="row">
+        {% for maps in maps %}
+        <div class="column">
+            <h4>{{maps.replace('image/','').replace('.jpg','')}}</h4>
+            <img src="{{url_for('static', filename=maps)}}" alt="{{maps}}" style="width:100%">
+        </div>
+        {% endfor %}
+    </div>
+<h1>Add Map</h1>
+<form action="/uploadMap" method="POST" enctype="multipart/form-data">
+  <input type = "file" name = "file" onchange="return fileValidation()"/>
+  <input type = "submit" />
+</form>
+{% endblock %}

@@ -3,6 +3,7 @@
 {% block body %}
   <h1>Dashboard </h1>
 <small> Welcome {{session.email}}</small>
+{% include 'includes/_adminsubnavbar.html' %}
   <hr>
   <table class="table table-striped">
     <tr>
@@ -10,7 +11,6 @@
       <th>email</th>
       <th>accountType[1=admin]</th>
       <th>accountStatus[1=active]</th>
-      <th></th>
       <th></th>
     </tr>
     {% for details in data %}
