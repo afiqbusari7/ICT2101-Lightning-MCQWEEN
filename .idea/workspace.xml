@@ -4,6 +4,9 @@
     <list default="true" id="90661ad7-e6b7-431d-b1dd-cc2ce18c1d30" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard_base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard_base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/includes/_navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/includes/_navbar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/mapDashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/mapDashboard.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webPortal.py" beforeDir="false" afterPath="$PROJECT_DIR$/webPortal.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -23,6 +26,14 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="ProjectId" id="20aRThOcDNmOwseRWuUmaAVjlyH" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -35,12 +46,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Edwin Nyeow Zu Ming\Documents\GitHub\ICT2101-Lightning-MCQWEEN\templates" />
-      <recent name="C:\Users\Edwin Nyeow Zu Ming\Documents\GitHub\ICT2101-Lightning-MCQWEEN\templates\includes" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Edwin Nyeow Zu Ming\Documents\GitHub\ICT2101-Lightning-MCQWEEN\static" />
       <recent name="C:\Users\afiqb\Documents\GitHub\ICT2101-Lightning-MCQWEEN\templates" />
     </key>
   </component>

@@ -202,7 +202,7 @@ def is_logged_in(f):
 def is_admin(f):
     @wraps(f)
     def wrap(*args, **kwargs):
-        print(session)
+        # print(session)
         if session['accType'] == 1:
             return f(*args, **kwargs)
         else:
@@ -374,9 +374,10 @@ def student_dashboard():
 @is_admin
 def mapDashboard():
     # Lists the images in the static image folder for html
-    maps = os.listdir('static/image')
-    mapsList = ['image/' + file for file in maps]
+    maps = os.listdir('static/map')
+    mapsList = ['map/' + file for file in maps]
     return render_template('mapDashboard.html', maps=mapsList)
+
 
 # Function to check against allowed extensions
 def allowed_file(filename):
@@ -386,7 +387,7 @@ def allowed_file(filename):
 
 # Generates BLOB Data from image
 def mapToBinary(map):
-    with open(map,'rb') as file:
+    with open(map, 'rb') as file:
         binaryData = file.read()
     return binaryData
 
@@ -415,8 +416,8 @@ def uploadMap():
         # Checks if extension is valid
         if f and allowed_file(f.filename):
             # Saves file into static/image folder and creates new map entry in db
-            f.save(os.path.join('static/image', secure_filename(f.filename)))
-            mapData = mapToBinary('static/image/'+f.filename)
+            f.save(os.path.join('static/map', secure_filename(f.filename)))
+            mapData = mapToBinary('static/map/' + f.filename)
             # write_file(mapBLOB, 'static/image/'+f.filename)
             mapName = f.filename
             # Create Cursor
@@ -434,7 +435,6 @@ def uploadMap():
             flash("Error Uploading Map", 'danger')
             return redirect(url_for('mapDashboard'))
     return redirect(url_for('mapDashboard'))
-
 
 
 @app.route('/learningPage')

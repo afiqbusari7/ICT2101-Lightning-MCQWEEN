@@ -1,9 +1,9 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-  <h1>Dashboard </h1>
-<small> Welcome {{session.email}}</small>
-{% include 'includes/_adminsubnavbar.html' %}
+  <h1 style="text-align:center">Dashboard </h1>
+<small> User: {{session.email}}</small>
+
   <hr>
   <table class="table table-striped">
     <tr>
