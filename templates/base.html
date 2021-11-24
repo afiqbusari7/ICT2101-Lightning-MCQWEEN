@@ -97,6 +97,35 @@
     .col-sm-1{
         /*background-color: red;*/
     }
+    #div1 {
+      float: left;
+      width: 200px;
+      height: 350px;
+      margin: 10px;
+      padding: 10px;
+      border: 1px solid black;
+    }
+    #div2 {
+      float: left;
+      width: 230px;
+      height: 350px;
+      margin: 10px;
+      padding: 10px;
+      border: 1px solid black;
+    }
+    div.ex1 {
+      background-color: lightblue;
+      width: 110px;
+      height: 110px;
+      overflow: scroll;
+    }
+    .box {
+      border: 3px solid #666;
+      background-color: #ddd;
+      border-radius: .5em;
+      padding: 2px;
+      cursor: move;
+    }
   </style>
 </head>
 <body onload="startGame()">
@@ -135,21 +164,35 @@
       <h1>Map</h1>
 
         <div id="container_canvas" class="container">
-          <!-- <p id="container_canvas"></p> -->
-            <!-- <canvas id="myCanvas" width="500" height="250"
-                style="border:1px solid #d3d3d3;">
-                Your browser does not support the canvas element.
-            </canvas> -->
+          <!-- this is where the map is -->
     </div>
 
 
-    <h3>Blockly API</h3>
+    <h3>Send Commands!</h3>
 
-      <div class="container">
-            <canvas id="myCanvas" width="500" height="300"
+      <div id="drag" class="container">
+            <!-- <canvas id="myCanvas" width="500" height="300"
                 style="border:1px solid #d3d3d3;">
 
-            </canvas>
+
+            </canvas> -->
+            <div class="ex1" id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+             <!--  <img src="/static/img.png" draggable="true" ondragstart="drag(event)" id="drag1" width="88" height="31"> -->
+              <div draggable="true" ondragstart="drag(event)" id="drag1" class="box">Forward</div>
+              <div draggable="true" ondragstart="drag(event)" id="drag2" class="box">Turn Right</div>
+              <div draggable="true" ondragstart="drag(event)" id="drag3" class="box">Turn Left</div>
+              <div draggable="true" ondragstart="drag(event)" id="drag4" class="box">Reverse</div>
+              <div draggable="true" ondragstart="drag(event)" id="drag5" class="box">Stop</div>
+              <div draggable="true" ondragstart="drag(event)" id="drag6" class="box">Spin</div>
+              <div draggable="true" ondragstart="drag(event)" id="drag7" class="box">For 1 second</div>
+              <div draggable="true" ondragstart="drag(event)" id="drag8" class="box">For 2 seconds</div>
+              <div draggable="true" ondragstart="drag(event)" id="drag9" class="box">For 3 seconds</div>
+              
+            </div>
+
+            <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <a href="freestylePage"><button class="button">Send command</button></a>
+            <a><button onclick="validate()" class="button">Validate</button></a>
         </div>
 
     </div>
@@ -194,11 +237,11 @@ function startGame() {
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
-        this.canvas.width = 500;
+        this.canvas.width = 470;
         this.canvas.height = 270;
 
         this.context = this.canvas.getContext("2d");
-        var container_canvas = document.getElementById("container_canvas");
+        //var container_canvas = document.getElementById("container_canvas");
         //document.getElementById("container_canvas").innerHTML = this.canvas;
         var container_canvas = document.getElementById("container_canvas");
 
@@ -262,9 +305,74 @@ function updateGameArea() {
     myGamePiece.newPos();
     myGamePiece.update();
 }
-</script>
+
+//Drag and Drop commands
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+// function drop(ev) {
+//   ev.preventDefault();
+//   var data = ev.dataTransfer.getData("text");
+//   ev.target.appendChild(document.getElementById(data));
+  
+// }
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  var isLeft = 'drag1' == data || "drag2" == data || "drag3" == data || "drag4" == data || "drag5" == data || "drag6" == data || "drag7" == data || "drag8" == data || "drag9" == data;
+  var nodeCopy = document.getElementById(data).cloneNode(true);
+  nodeCopy.id = "img" + ev.target.id;
+  if (!isLeft) {
+    sourceNode = document.getElementById(data);
+    sourceNode.parentNode.removeChild(sourceNode);
+  }
+  ev.target.appendChild(nodeCopy);
+  ev.stopPropagation();
+  return false;
+}
+
+function validate() {
+  var get_data=document.getElementById("div2");//.innerHTML;// = "Hello World";
+  // document.write(get_data);
+  textContent = get_data.textContent;
+// textContent = "Some sample text."
+  readTextFile("/static/quiz1.txt", textContent);
+  //var fr=new FileReader();
+  // document.getElementById('output').textContent=fr.result;
+}
+
+function readTextFile(file, student_input)
+{
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                var allText = rawFile.responseText;
+                if(String(student_input)==String(allText)){
+                  alert("That's correct!! Car shall be moving now!");
+                }else{
+                  alert("Wrong answer! Try again!")
+                }
+                
+            }
+        }
+    }
+    rawFile.send(null);
+}
+
 
 </script>
+
+
 
 
 <p>The component constructor uses the built-in image object to draw images onto the canvas.</p>
