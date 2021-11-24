@@ -89,7 +89,9 @@ def register():
                 cur.execute("INSERT INTO admin(email, password, accountType, accountStatus) VALUES(%s, %s,%s,%s)",
                             (email, password, accountType, accountStatus))
         else:
+
             email_value = cur.execute("SELECT email FROM student WHERE email=%s", [email])
+
 
             if email_value > 0:
                 flash("User is already registered", 'success')
@@ -358,6 +360,8 @@ def student_dashboard():
 
     # Show articles only from the user logged in
     result = cur.execute("SELECT * FROM student where email= %s", [session['email']])
+
+
 
     studentDetails = cur.fetchall()
 
