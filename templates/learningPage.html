@@ -25,11 +25,15 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-         <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
+         <li class="active"><a href="student_dashboard">Dashboard</a></li>
+          <li class="active"><a href="learningPage">Learning</a></li>
+          <li class="active"><a href="freestylePage">Freestyle</a></li>
+          <li class="active"><a href="freestylePage">Quiz</a></li>
+
+
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="{{ url_for('index')}}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      <li><a href="{{ url_for('logout')}}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
       </ul>
     </div>
   </div>
@@ -39,26 +43,21 @@
   <div class="row content">
     <div class="col-sm-4 sidenav">
       <h1>Car Status</h1>
-          <div class="well">
+          <div class="well1">
             <p>display car data here</p>
           </div>
     </div>
     <div class="col-sm-4 text-center">
       <h2>Map</h2>
 
-        <div id="container_canvas" class="container">
+        <div id="container_canvas" class="containerMap">
           <!-- this is where the map is -->
     </div>
 
 
     <h3 class="first" >Send Commands!</h3>
 
-      <div id="drag" class="container">
-            <!-- <canvas id="myCanvas" width="500" height="300"
-                style="border:1px solid #d3d3d3;">
-
-
-            </canvas> -->
+      <div id="drag" class="containerCommands">
             <div class="ex1" id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
              <!--  <img src="/static/img.png" draggable="true" ondragstart="drag(event)" id="drag1" width="88" height="31"> -->
               <div draggable="true" ondragstart="drag(event)" id="drag1" class="box">Forward</div>
@@ -73,25 +72,16 @@
 
             </div>
 
-            <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="ex2" id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
             <a href="freestylePage"><button class="button">Send command</button></a>
             <a><button onclick="validate()" class="button">Validate</button></a>
         </div>
 
     </div>
-    <div class="col-sm-1 sidenav">
-        <div class="btn-group">
-          <a href="learningPage"><button class="button">Learning</button></a>
-          <a href="freestylePage"><button class="button">Freestyle</button></a>
-          <a href="quizPage"><button class="button">Quiz</button></a>
-          <a href="student_dashboard"><button class="button">Dashboard</button></a>
-        </div>
-
-    </div>
 
     <div class="col-sm-3 sidenav">
-        <h1>{% block left%} History Log{% endblock %}</h1>
-        <div class="well">
+        <h4>{% block left%} History Log{% endblock %}</h4>
+        <div class="well2">
             <p>display from DB</p>
         </div>
 
@@ -113,40 +103,92 @@
             }
         });
 
-        tour.addStep('example-step', {
-            text: 'This is where you will learn about us.',
-            attachTo: '.well bottom',
-            buttons: [
-                {
-                    text: 'Next',
-                    action: tour.next
-                }
-            ]
-        });
-
-        tour.addStep('example-step2', {
-            text: 'This is a side navigation, duh!',
-            attachTo: 'h2 right',
-            buttons: [
-                {
-                    text: 'Next',
-                    action: tour.next
-                }
-            ]
-        });
-
-        tour.addStep('example-step3', {
-        text: 'This is the end of your tour bro',
-        attachTo: 'h1 bottom',
+        tour.addStep('example-step1', {
+        text: 'hhhhhhhhhhhhhhhh',
+        attachTo: '.well1 bottom',
         buttons: [
             {
-            text: 'Get this outta here',
+            text: 'Displays Car Status',
+            action: tour.next
+            }
+        ]
+        });
+         tour.addStep('example-step1', {
+        text: 'hhhhhhhhhhhhhhhh',
+        attachTo: '.well2 bottom',
+        buttons: [
+            {
+            text: 'Displays History',
+            action: tour.next
+            }
+        ]
+        });
+        tour.addStep('example-step1', {
+        text: 'hhhhhhhhhhhhhhhh',
+        attachTo: '.containerMap bottom',
+        buttons: [
+            {
+            text: 'Displays Car Map ',
+            action: tour.next
+            }
+        ]
+        });
+        tour.addStep('example-step1', {
+        text: 'hhhhhhhhhhhhhhhh',
+        attachTo: '.ex1 bottom',
+        buttons: [
+            {
+            text: 'Drag to Send Commands ',
+            action: tour.next
+            }
+        ]
+        });
+        tour.addStep('example-step1', {
+        text: 'hhhhhhhhhhhhhhhh',
+        attachTo: '.ex2 bottom',
+        buttons: [
+            {
+            text: 'Command Send appears here ',
             action: tour.next
             }
         ]
         });
 
+
+        tour.addStep('example-step1', {
+        text: 'hhhhhhhhhhhhhhhhhhhhhhhhhhhhh',
+        attachTo: '.button top',
+        buttons: [
+            {
+            text: 'Click to submit command or validate here ',
+            action: tour.next
+            }
+        ]
+        });
+        tour.addStep('example-step1', {
+        text: 'hhhhhhhhhhhhhhhhhhhhhhhhhhhhh',
+        attachTo: '.button top',
+        buttons: [
+            {
+            text: 'Click to submit command or validate here ',
+            action: tour.next
+            }
+        ]
+        });
+         tour.addStep('example-step1', {
+        text: 'hhhhhhhhhhhhhhhh',
+        attachTo: '.containerMap bottom',
+        buttons: [
+            {
+            text: 'Thats the end of the tour',
+            action: tour.next
+            }
+        ]
+        });
+
+
         tour.start()
+
 
     </script>
   <script>
@@ -296,7 +338,9 @@ function readTextFile(file, student_input)
 
 
 </script>
-
+  <footer class="container-fluid text-center">
+  <p>Footer Text</p>
+</footer>
 </body>
 </html>
 
