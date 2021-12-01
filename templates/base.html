@@ -7,6 +7,10 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/node_modules/shepherd.js/dist/css/shepherd-theme-arrows.css" />
+    <script src="/node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/node_modules/shepherd.js/dist/js/shepherd.min.js"></script>
   <style>
     /* Remove the navbar's default margin-bottom and rounded borders */
     .navbar {
@@ -166,7 +170,24 @@
         <div id="container_canvas" class="container">
           <!-- this is where the map is -->
     </div>
-
+    <script>
+         const tour = new Shepherd.Tour({
+            defaults: {
+                classes: 'shepherd-theme-arrows'
+            }
+        });
+        tour.addStep('example-step', {
+            text: 'This is where you will learn about us.',
+            attachTo: '.first bottom',
+            buttons: [
+                {
+                    text: 'Next',
+                    action: tour.next
+                }
+            ]
+        });
+        tour.start()
+      </script>
 
     <h3>Send Commands!</h3>
 
