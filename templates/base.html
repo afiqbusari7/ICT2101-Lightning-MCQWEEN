@@ -8,9 +8,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" href="/node_modules/shepherd.js/dist/css/shepherd-theme-arrows.css" />
-    <script src="/node_modules/popper.js/dist/umd/popper.min.js"></script>
-    <script src="/node_modules/shepherd.js/dist/js/shepherd.min.js"></script>
+
   <style>
     /* Remove the navbar's default margin-bottom and rounded borders */
     .navbar {
@@ -170,26 +168,9 @@
         <div id="container_canvas" class="container">
           <!-- this is where the map is -->
     </div>
-    <script>
-         const tour = new Shepherd.Tour({
-            defaults: {
-                classes: 'shepherd-theme-arrows'
-            }
-        });
-        tour.addStep('example-step', {
-            text: 'This is where you will learn about us.',
-            attachTo: '.first bottom',
-            buttons: [
-                {
-                    text: 'Next',
-                    action: tour.next
-                }
-            ]
-        });
-        tour.start()
-      </script>
 
-    <h3>Send Commands!</h3>
+
+    <h3 class="first" >Send Commands!</h3>
 
       <div id="drag" class="container">
             <!-- <canvas id="myCanvas" width="500" height="300"
@@ -208,7 +189,7 @@
               <div draggable="true" ondragstart="drag(event)" id="drag7" class="box">For 1 second</div>
               <div draggable="true" ondragstart="drag(event)" id="drag8" class="box">For 2 seconds</div>
               <div draggable="true" ondragstart="drag(event)" id="drag9" class="box">For 3 seconds</div>
-              
+
             </div>
 
             <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
@@ -340,7 +321,7 @@ function drag(ev) {
 //   ev.preventDefault();
 //   var data = ev.dataTransfer.getData("text");
 //   ev.target.appendChild(document.getElementById(data));
-  
+
 // }
 function drop(ev) {
   ev.preventDefault();
@@ -383,7 +364,7 @@ function readTextFile(file, student_input)
                 }else{
                   alert("Wrong answer! Try again!")
                 }
-                
+
             }
         }
     }

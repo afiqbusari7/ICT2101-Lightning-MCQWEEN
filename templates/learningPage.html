@@ -1,6 +1,303 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>MyLightningMcQween</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='node_modules/shepherd.js/dist/css/shepherd-theme-arrows.css') }}">
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/learning.css') }}">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-{% block content %}
-    <h1>{% block left %}Guide{% endblock %}</h1>
+    <script type="text/javascript" src="{{ url_for('static', filename='node_modules/popper.js/dist/umd/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='node_modules/shepherd.js/dist/js/shepherd.min.js') }}"></script>
+  </head>
+<body onload="startGame()">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{{ url_for('index')}}">Lightning McQween</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+         <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{{ url_for('index')}}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-{% endblock %}
+<div class="container-fluid text-center">
+  <div class="row content">
+    <div class="col-sm-4 sidenav">
+      <h1>Car Status</h1>
+          <div class="well">
+            <p>display car data here</p>
+          </div>
+    </div>
+    <div class="col-sm-4 text-center">
+      <h2>Map</h2>
+
+        <div id="container_canvas" class="container">
+          <!-- this is where the map is -->
+    </div>
+
+
+    <h3 class="first" >Send Commands!</h3>
+
+      <div id="drag" class="container">
+            <!-- <canvas id="myCanvas" width="500" height="300"
+                style="border:1px solid #d3d3d3;">
+
+
+            </canvas> -->
+            <div class="ex1" id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+             <!--  <img src="/static/img.png" draggable="true" ondragstart="drag(event)" id="drag1" width="88" height="31"> -->
+              <div draggable="true" ondragstart="drag(event)" id="drag1" class="box">Forward</div>
+              <div draggable="true" ondragstart="drag(event)" id="drag2" class="box">Turn Right</div>
+              <div draggable="true" ondragstart="drag(event)" id="drag3" class="box">Turn Left</div>
+              <div draggable="true" ondragstart="drag(event)" id="drag4" class="box">Reverse</div>
+              <div draggable="true" ondragstart="drag(event)" id="drag5" class="box">Stop</div>
+              <div draggable="true" ondragstart="drag(event)" id="drag6" class="box">Spin</div>
+              <div draggable="true" ondragstart="drag(event)" id="drag7" class="box">For 1 second</div>
+              <div draggable="true" ondragstart="drag(event)" id="drag8" class="box">For 2 seconds</div>
+              <div draggable="true" ondragstart="drag(event)" id="drag9" class="box">For 3 seconds</div>
+
+            </div>
+
+            <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <a href="freestylePage"><button class="button">Send command</button></a>
+            <a><button onclick="validate()" class="button">Validate</button></a>
+        </div>
+
+    </div>
+    <div class="col-sm-1 sidenav">
+        <div class="btn-group">
+          <a href="learningPage"><button class="button">Learning</button></a>
+          <a href="freestylePage"><button class="button">Freestyle</button></a>
+          <a href="quizPage"><button class="button">Quiz</button></a>
+          <a href="student_dashboard"><button class="button">Dashboard</button></a>
+        </div>
+
+    </div>
+
+    <div class="col-sm-3 sidenav">
+        <h1>{% block left%} History Log{% endblock %}</h1>
+        <div class="well">
+            <p>display from DB</p>
+        </div>
+
+    </div>
+</div>
+</div>
+
+  </body>
+
+
+    <main>
+
+    </main>
+  <script>
+
+        const tour = new Shepherd.Tour({
+            defaults: {
+                classes: 'shepherd-theme-arrows'
+            }
+        });
+
+        tour.addStep('example-step', {
+            text: 'This is where you will learn about us.',
+            attachTo: '.well bottom',
+            buttons: [
+                {
+                    text: 'Next',
+                    action: tour.next
+                }
+            ]
+        });
+
+        tour.addStep('example-step2', {
+            text: 'This is a side navigation, duh!',
+            attachTo: 'h2 right',
+            buttons: [
+                {
+                    text: 'Next',
+                    action: tour.next
+                }
+            ]
+        });
+
+        tour.addStep('example-step3', {
+        text: 'This is the end of your tour bro',
+        attachTo: 'h1 bottom',
+        buttons: [
+            {
+            text: 'Get this outta here',
+            action: tour.next
+            }
+        ]
+        });
+
+        tour.start()
+
+    </script>
+  <script>
+var myGamePiece;
+var myBackground;
+function startGame() {
+
+    myGamePiece = new component(60, 60, "/static/img.png", 400, 120, "image");
+    myBackground = new component(656, 270, "/static/map.jpg", 0, 0, "image");
+    myGameArea.start();
+}
+
+var myGameArea = {
+    canvas : document.createElement("canvas"),
+    start : function() {
+        this.canvas.width = 470;
+        this.canvas.height = 270;
+
+        this.context = this.canvas.getContext("2d");
+        //var container_canvas = document.getElementById("container_canvas");
+        //document.getElementById("container_canvas").innerHTML = this.canvas;
+        var container_canvas = document.getElementById("container_canvas");
+
+        container_canvas.insertBefore(this.canvas, container_canvas.childNodes[0]);
+        this.frameNo = 0;
+        this.interval = setInterval(updateGameArea, 20);
+        window.addEventListener('keydown', function (e) {
+      myGameArea.key = e.keyCode;
+    })
+    window.addEventListener('keyup', function (e) {
+      myGameArea.key = false;
+    })
+  },
+    stop : function() {
+        clearInterval(this.interval);
+    },
+    clear : function() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+}
+function component(width, height, color, x, y, type) {
+    this.type = type;
+    if (type == "image") {
+        this.image = new Image();
+        this.image.src = color;
+    }
+    this.width = width;
+    this.height = height;
+    this.speedX = 0;
+    this.speedY = 0;
+    this.x = x;
+    this.y = y;
+    this.update = function() {
+        ctx = myGameArea.context;
+        if (type == "image") {
+            ctx.drawImage(this.image,
+                this.x,
+                this.y,
+                this.width, this.height);
+        } else {
+            ctx.fillStyle = color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    this.newPos = function() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+    }
+}
+
+function updateGameArea() {
+    myGameArea.clear();
+    myBackground.newPos();
+    myBackground.update();
+    myGamePiece.speedX = 0;
+    myGamePiece.speedY = 0;
+    if (myGameArea.key && myGameArea.key == 37) {myGamePiece.speedX = -1; }
+    if (myGameArea.key && myGameArea.key == 39) {myGamePiece.speedX = 1; }
+    if (myGameArea.key && myGameArea.key == 38) {myGamePiece.speedY = -1; }
+    if (myGameArea.key && myGameArea.key == 40) {myGamePiece.speedY = 1; }
+    myGamePiece.newPos();
+    myGamePiece.update();
+}
+
+//Drag and Drop commands
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+// function drop(ev) {
+//   ev.preventDefault();
+//   var data = ev.dataTransfer.getData("text");
+//   ev.target.appendChild(document.getElementById(data));
+
+// }
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  var isLeft = 'drag1' == data || "drag2" == data || "drag3" == data || "drag4" == data || "drag5" == data || "drag6" == data || "drag7" == data || "drag8" == data || "drag9" == data;
+  var nodeCopy = document.getElementById(data).cloneNode(true);
+  nodeCopy.id = "img" + ev.target.id;
+  if (!isLeft) {
+    sourceNode = document.getElementById(data);
+    sourceNode.parentNode.removeChild(sourceNode);
+  }
+  ev.target.appendChild(nodeCopy);
+  ev.stopPropagation();
+  return false;
+}
+
+function validate() {
+  var get_data=document.getElementById("div2");//.innerHTML;// = "Hello World";
+  // document.write(get_data);
+  textContent = get_data.textContent;
+// textContent = "Some sample text."
+  readTextFile("/static/quiz1.txt", textContent);
+  //var fr=new FileReader();
+  // document.getElementById('output').textContent=fr.result;
+}
+
+function readTextFile(file, student_input)
+{
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                var allText = rawFile.responseText;
+                if(String(student_input)==String(allText)){
+                  alert("That's correct!! Car shall be moving now!");
+                }else{
+                  alert("Wrong answer! Try again!")
+                }
+
+            }
+        }
+    }
+    rawFile.send(null);
+}
+
+
+</script>
+
+</body>
+</html>
+
+
