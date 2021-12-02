@@ -233,8 +233,7 @@
 
     <div class="col-sm-3 sidenav">
         <h1>{% block left%} {% endblock %}</h1>
-        <div class="well">
-            <p>display from DB</p>
+        <div id="historywell" class="well">
         </div>
 
     </div>
@@ -262,10 +261,7 @@ var myGameArea = {
         this.canvas.height = 350;
 
         this.context = this.canvas.getContext("2d");
-        //var container_canvas = document.getElementById("container_canvas");
-        //document.getElementById("container_canvas").innerHTML = this.canvas;
         var container_canvas = document.getElementById("container_canvas");
-
         container_canvas.insertBefore(this.canvas, container_canvas.childNodes[0]);
         this.frameNo = 0;
         this.interval = setInterval(updateGameArea, 20);
@@ -381,6 +377,18 @@ function send() {
   var stringArray = textContent.split(/(\s+\s+)/);
   var newArr = stringArray.filter(function(entry) { return entry.trim() != ''; })
   console.log(newArr);
+
+  //clear send command box
+  document.getElementById("div2").innerHTML =""
+
+  //clear prev display on well
+  document.getElementById("historywell").innerHTML =""
+  //display on well
+  for (let i=0; i < newArr.length; i++){
+    document.getElementById("historywell").innerHTML += newArr[i] + "<br>"
+  }
+  
+
 
 }
 
