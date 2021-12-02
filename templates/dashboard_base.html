@@ -7,7 +7,15 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Varela+Round&display=swap" rel="stylesheet">
   <style>
+
+
+    *{
+      font-family: 'Fredoka One', cursive;
+    }
     /* Remove the navbar's default margin-bottom and rounded borders */ 
     .navbar {
       margin-bottom: 0;
@@ -50,7 +58,8 @@
     }
 
     body{
-    background: #f2f2f2;
+    /*background: #f2f2f2;*/
+    background-image:url("https://cdn.suwalls.com/wallpapers/vector/footprints-in-the-desert-15396-1920x1080.jpg");  
     }
 
     audio, canvas, progress, video {
@@ -103,6 +112,7 @@
       text-align: center;
       text-decoration: none;
       display: inline-block;
+      background: rgba(255, 255, 255, 0.3);
 
     }
 
@@ -113,6 +123,12 @@
     .btn-group .button:hover {
       background-color: #808080;
     }
+
+    .mode{
+      margin-top: 200px;
+      margin-bottom: 70px;
+    }
+
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
       .sidenav {
@@ -136,7 +152,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="{{ url_for('index')}}">Lightning McQween</a>
+      <a class="navbar-brand" href="{{ url_for('index')}}">MyLightningMcQween</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
@@ -160,14 +176,14 @@
       <h2>Total Quiz Score: {% block quiz_score%} {% endblock %}</h2>
       <h2>Tutorial Progress: {% block tutorial_progress%} {% endblock %}</h2> -->
       
-    <h1>Select Mode</h1>
+    <h1 class="mode">Select Mode</h1>
     <div class="btn-group"> 
           <a href="learningPage"><button class="button">Learning Mode</button></a>
           <a href="freestylePage"><button class="button">Freestyle Mode</button></a>
           <a href="quizPage"><button class="button">Quiz Mode</button></a>
     </div>
     <div class="btn-caption"> 
-          <button class="button">LLearn how to use the web</button>
+          <button class="button">Learn how to program!</button>
           <button class="button">Take free realm of your car!</button>
           <button class="button">Test your programming skills!</button>
     </div>

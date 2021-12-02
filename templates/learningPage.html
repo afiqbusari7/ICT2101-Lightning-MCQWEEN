@@ -11,7 +11,16 @@
 
     <script type="text/javascript" src="{{ url_for('static', filename='node_modules/popper.js/dist/umd/popper.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='node_modules/shepherd.js/dist/js/shepherd.min.js') }}"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Varela+Round&display=swap" rel="stylesheet">
   </head>
+
+
+
+
+
 <body onload="startGame()">
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -21,7 +30,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{{ url_for('index')}}">Lightning McQween</a>
+      <a class="navbar-brand" href="{{ url_for('index')}}">MyLightningMcQween</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
@@ -50,31 +59,32 @@
     <div class="col-sm-4 text-center">
       <h2>Map</h2>
 
-        <div id="container_canvas" class="containerMap">
+        <div id="container_canvas" class="container containerMap">
           <!-- this is where the map is -->
+
     </div>
 
 
     <h3 class="first" >Send Commands!</h3>
 
-      <div id="drag" class="containerCommands">
+      <div id="drag" class="container containerCommands">
             <div class="ex1" id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
-             <!--  <img src="/static/img.png" draggable="true" ondragstart="drag(event)" id="drag1" width="88" height="31"> -->
-              <div draggable="true" ondragstart="drag(event)" id="drag1" class="box">Forward</div>
-              <div draggable="true" ondragstart="drag(event)" id="drag2" class="box">Turn Right</div>
-              <div draggable="true" ondragstart="drag(event)" id="drag3" class="box">Turn Left</div>
-              <div draggable="true" ondragstart="drag(event)" id="drag4" class="box">Reverse</div>
-              <div draggable="true" ondragstart="drag(event)" id="drag5" class="box">Stop</div>
-              <div draggable="true" ondragstart="drag(event)" id="drag6" class="box">Spin</div>
-              <div draggable="true" ondragstart="drag(event)" id="drag7" class="box">For 1 second</div>
-              <div draggable="true" ondragstart="drag(event)" id="drag8" class="box">For 2 seconds</div>
-              <div draggable="true" ondragstart="drag(event)" id="drag9" class="box">For 3 seconds</div>
+
+              <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag1" class="box" style="background: #000099; color: white;"> Forward </div>
+              <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag2" class="box" style="background: #3399ff; color: white;"> Turn Right </div>
+              <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag3" class="box" style="background: #00cc88; color: white;"> Turn Left </div>
+              <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag4" class="box" style="background: #00e673; color: white;"> Reverse </div>
+              <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag5" class="box" style="background: #ff3333; color: white;"> Stop </div>
+              <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag6" class="box" style="background: #ff66d9; color: white;"> Spin </div>
+              <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag7" class="box" style="background: #cc6600; color: white;"> For 1 second </div>
+              <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag8" class="box" style="background: #ff9966; color: white;"> For 2 seconds </div>
+              <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag9" class="box" style="background: #9900ff; color: white;"> For 3 seconds </div>
 
             </div>
 
             <div class="ex2" id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-            <a href="freestylePage"><button class="button">Send command</button></a>
-            <a><button onclick="validate()" class="button">Validate</button></a>
+            <a ><button class="button">Send command</button></a>
+            <!-- <a><button onclick="validate()" class="button">Validate</button></a> -->
         </div>
 
     </div>
@@ -196,16 +206,16 @@ var myGamePiece;
 var myBackground;
 function startGame() {
 
-    myGamePiece = new component(60, 60, "/static/img.png", 400, 120, "image");
-    myBackground = new component(656, 270, "/static/map.jpg", 0, 0, "image");
+    myGamePiece = new component(90, 60, "/static/img.png", 280, 175, "image");
+    myBackground = new component(350, 350, "/static/map/Map3.jpg", 0, 0, "image");
     myGameArea.start();
 }
 
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
-        this.canvas.width = 470;
-        this.canvas.height = 270;
+        this.canvas.width = 350;
+        this.canvas.height = 350;
 
         this.context = this.canvas.getContext("2d");
         //var container_canvas = document.getElementById("container_canvas");
@@ -286,7 +296,7 @@ function drag(ev) {
 //   ev.preventDefault();
 //   var data = ev.dataTransfer.getData("text");
 //   ev.target.appendChild(document.getElementById(data));
-
+  
 // }
 function drop(ev) {
   ev.preventDefault();
@@ -303,14 +313,28 @@ function drop(ev) {
   return false;
 }
 
+function dropNO(ev){
+  //alert("please lah")
+  drop(ev)
+  //location.reload();
+  var myobj = document.getElementById("imgimgdiv2");
+  myobj.remove();
+}
+
 function validate() {
-  var get_data=document.getElementById("div2");//.innerHTML;// = "Hello World";
-  // document.write(get_data);
-  textContent = get_data.textContent;
-// textContent = "Some sample text."
+  var get_data=document.getElementById("div2");
+  textContent = get_data.textContent; 
   readTextFile("/static/quiz1.txt", textContent);
-  //var fr=new FileReader();
-  // document.getElementById('output').textContent=fr.result;
+
+}
+
+function send() {
+  var get_data=document.getElementById("div2");
+  textContent = get_data.textContent;
+  var stringArray = textContent.split(/(\s+\s+)/);
+  var newArr = stringArray.filter(function(entry) { return entry.trim() != ''; })
+  console.log(newArr);
+
 }
 
 function readTextFile(file, student_input)
@@ -329,7 +353,7 @@ function readTextFile(file, student_input)
                 }else{
                   alert("Wrong answer! Try again!")
                 }
-
+                
             }
         }
     }
@@ -338,9 +362,7 @@ function readTextFile(file, student_input)
 
 
 </script>
-  <footer class="container-fluid text-center">
-  <p>Footer Text</p>
-</footer>
+
 </body>
 </html>
 
