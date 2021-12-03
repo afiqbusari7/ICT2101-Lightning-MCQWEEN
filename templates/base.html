@@ -11,8 +11,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Varela+Round&display=swap" rel="stylesheet">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/base.css') }}">
+          <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/base.css') }}">
+  <style>
 
+
+
+  </style>
 </head>
 <body onload="startGame()">
 
@@ -66,11 +70,13 @@
     <h3>Send Commands!</h3>
 
       <div id="drag" class="container">
-
+            <!-- <canvas id="myCanvas" width="500" height="300"
+                style="border:1px solid #d3d3d3;">
 
 
             </canvas> -->
             <div class="ex1" id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+             <!--  <img src="/static/img.png" draggable="true" ondragstart="drag(event)" id="drag1" width="88" height="31"> -->
               <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag1" class="box" style="background: #000099; color: white;"> Forward </div>
               <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag2" class="box" style="background: #3399ff; color: white;"> Turn Right </div>
               <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag3" class="box" style="background: #00cc88; color: white;"> Turn Left </div>
@@ -95,6 +101,7 @@
     <div class="col-sm-3 sidenav">
         <h1>{% block left%} {% endblock %}</h1>
         <div id="historywell" class="well">
+            <p>display car logs here</p>
         </div>
 
     </div>

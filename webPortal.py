@@ -4,6 +4,7 @@ from werkzeug.utils import secure_filename
 import mysql.connector
 import requests
 from flask import Flask, render_template, flash, redirect, url_for, session, logging, request
+
 from flask_mysqldb import MySQL
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators, RadioField, EmailField, IntegerField
 from passlib.hash import sha256_crypt
@@ -22,8 +23,7 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 # init MYSQL
 mysql = MySQL(app)
 
-
-#Register forms
+#register form
 class RegisterForm(Form):
     email = StringField('Email', [validators.Email()])
     password = PasswordField('Password',
@@ -66,7 +66,6 @@ def register():
         else:
 
             email_value = cur.execute("SELECT email FROM student WHERE email=%s", [email])
-
 
             if email_value > 0:
                 flash("User is already registered", 'danger')
@@ -177,7 +176,7 @@ def is_logged_in(f):
 
     return wrap
 
-#checks user if is admin
+# check if user is admin
 def is_admin(f):
     @wraps(f)
     def wrap(*args, **kwargs):
@@ -189,42 +188,40 @@ def is_admin(f):
 
     return wrap
 
-#checks if user is logged in as amdin
+#check if user is either logged in
+def is_loggedstudentoradmin(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        try:
+            # print(session)
+            if session['accType'] == 0:
+                return redirect(url_for('student_dashboard'))
+            if session['accType'] == 1:
+                return redirect(url_for('dashboard'))
+        except KeyError:
+            return f(*args, **kwargs)
+
+    return wrap
+
+#log in as admin
 def is_loggedAdmin(f):
     @wraps(f)
     def wrap(*args, **kwargs):
         # print(session)
-        if session['accType'] == 1:
+        if session['accType'] == 0:
             return redirect(url_for('dashboard'))
         else:
             return f(*args, **kwargs)
 
-
-    return wrap
-
-#check is user is student
-def is_student(f):
-    @wraps(f)
-    def wrap(*args, **kwargs):
-        # print(session)
-        if session['accType'] == 1:
-            return f(*args, **kwargs)
-        else:
-            return redirect(url_for('student_dashboard'))
-
     return wrap
 
 
-# direct the home page accessibility
+# direct the respective pages
+
 @app.route('/')
-@is_loggedAdmin
-@is_student
+@is_loggedstudentoradmin
 def index():
     return render_template('home.html')
-
-
-
-
 
 
 # Logout
@@ -235,7 +232,7 @@ def logout():
     flash('You are now logged out ', 'success')
     return redirect(url_for('login'))
 
-#studeent form
+
 class createStudentForm(Form):
     email = StringField('Email', [validators.Email()])
     password = PasswordField('Password',
@@ -341,7 +338,7 @@ def edit_accounts(id):
         return redirect(url_for('dashboard'))
     return render_template('edit_accounts.html', form=form)
 
-#Update User account
+
 @app.route("/update_accounts/<string:id>", methods=['GET'])
 @is_logged_in
 @is_admin
@@ -372,8 +369,6 @@ def student_dashboard():
 
     # Show articles only from the user logged in
     result = cur.execute("SELECT * FROM student where email= %s", [session['email']])
-
-
 
     studentDetails = cur.fetchall()
 
@@ -454,19 +449,19 @@ def uploadMap():
             return redirect(url_for('mapDashboard'))
     return redirect(url_for('mapDashboard'))
 
-#learning page
+
 @app.route('/learningPage')
 @is_logged_in
 def learningPage():
     return render_template('learningPage.html')
 
-#quiz page
+
 @app.route('/quizPage')
 @is_logged_in
 def quizPage():
     return render_template('quizPage.html')
 
-#free style
+
 @app.route('/freestylePage')
 @is_logged_in
 def freestylePage():

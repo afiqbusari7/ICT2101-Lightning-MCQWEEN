@@ -1,7 +1,6 @@
-   *{
+    *{
       font-family: 'Fredoka One', cursive;
     }
-
     /* Remove the navbar's default margin-bottom and rounded borders */
     .navbar {
       margin-bottom: 0;
@@ -26,7 +25,7 @@
     min-height: 200px;
     padding: 19px;
     margin-bottom: 70px;
-    background:  rgba(255,255,255,0.8);
+    background-color: #f5f5f5;
     border: 1px solid #e3e3e3;
     border-radius: 40px;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
@@ -52,36 +51,69 @@
     display: inline-block;
     vertical-align: baseline;
     background-color: whitesmoke;
-    border: 1px solid black;
+    }
+    h1{
+      background-color: #800000;
+      color: white;
+      padding: 10px;
+      width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    h2{
+      text-align: left;
+      margin-left: 500px;
+      font-size: 30px;
     }
 
     .container{
-        width: 500px;
+        width: 1000px;
+        margin-top: 60px;
     }
-    .btn-group{
-        margin-top: 400px;
-    }
+
+
     .btn-group .button {
-      background-color: #800000; /* red */
+      width: 200px;
+      margin-right: 50px;
+      background-color: #bfbfbf;
       border: 1px solid black;
-      color: white;
+      color: black;
       padding: 15px 32px;
       text-align: center;
       text-decoration: none;
+      display: inline-block;
       font-size: 16px;
       cursor: pointer;
-      width: 150px;
-      display: block;
-      margin-bottom: 10px;
+
+    }
+
+    .btn-caption .button{
+      width: 200px;
+      margin-right: 50px;
+      background-color: #f2f2f2;
+      border: 0px ;
+      color: black;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.3);
+
     }
 
     .btn-group .button:not(:last-child) {
-      border-bottom: none; /* Prevent double borders */
+      border-right: none; /* Prevent double borders */
     }
 
     .btn-group .button:hover {
-      background-color: #4d0000;
+      background-color: #808080;
     }
+
+    .mode{
+      margin-top: 200px;
+      margin-bottom: 70px;
+    }
+
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
       .sidenav {
@@ -92,44 +124,4 @@
     }
     .col-sm-1{
         /*background-color: red;*/
-    }
-    #div1 {
-      float: left;
-      width: 200px;
-      height: 350px;
-      margin: 10px;
-      padding: 10px;
-      border: 1px solid black;
-    }
-    #div2 {
-      float: left;
-      width: 230px;
-      height: 350px;
-      margin: 10px;
-      padding: 10px;
-      border: 1px solid black;
-      background-color: #ffffff;
-    }
-    div.ex1 {
-      background-color: lightblue;
-      width: 110px;
-      height: 110px;
-      overflow: scroll;
-    }
-    .box {
-      border: 3px solid #666;
-      background-color: #ddd;
-      border-radius: .5em;
-      padding: 2px;
-      margin: 2px;
-      cursor: move;
-      height: 30px;
-      max-height: 30px;
-      width: 170px;
-      max-width: 170px;
-      margin-left: auto;
-      margin-right: auto;
-      overflow: hidden;
-      /*text-overflow: ellipsis;*/
-
     }
