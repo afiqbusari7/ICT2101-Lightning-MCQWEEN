@@ -23,30 +23,7 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 mysql = MySQL(app)
 
 
-
-
-# direct the pages
-@app.route('/')
-def index():
-    return render_template('home.html')
-
-
-
-@app.route('/about')
-def about():
-    return render_template('about.html')
-
-
-@app.route('/articles')
-def articles():
-    return render_template('articles.html', articles=Articles)
-
-
-@app.route('/article/<string:id>')
-def article(id):
-    return render_template('article.html', id=id)
-
-
+#Register forms
 class RegisterForm(Form):
     email = StringField('Email', [validators.Email()])
     password = PasswordField('Password',
@@ -200,7 +177,7 @@ def is_logged_in(f):
 
     return wrap
 
-
+#checks user if is admin
 def is_admin(f):
     @wraps(f)
     def wrap(*args, **kwargs):
@@ -212,6 +189,43 @@ def is_admin(f):
 
     return wrap
 
+#checks if user is logged in as amdin
+def is_loggedAdmin(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        # print(session)
+        if session['accType'] == 1:
+            return redirect(url_for('dashboard'))
+        else:
+            return f(*args, **kwargs)
+
+
+    return wrap
+
+#check is user is student
+def is_student(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        # print(session)
+        if session['accType'] == 1:
+            return f(*args, **kwargs)
+        else:
+            return redirect(url_for('student_dashboard'))
+
+    return wrap
+
+
+# direct the home page accessibility
+@app.route('/')
+@is_loggedAdmin
+@is_student
+def index():
+    return render_template('home.html')
+
+
+
+
+
 
 # Logout
 @app.route('/logout')
@@ -221,7 +235,7 @@ def logout():
     flash('You are now logged out ', 'success')
     return redirect(url_for('login'))
 
-
+#studeent form
 class createStudentForm(Form):
     email = StringField('Email', [validators.Email()])
     password = PasswordField('Password',
@@ -327,7 +341,7 @@ def edit_accounts(id):
         return redirect(url_for('dashboard'))
     return render_template('edit_accounts.html', form=form)
 
-
+#Update User account
 @app.route("/update_accounts/<string:id>", methods=['GET'])
 @is_logged_in
 @is_admin
@@ -440,19 +454,19 @@ def uploadMap():
             return redirect(url_for('mapDashboard'))
     return redirect(url_for('mapDashboard'))
 
-
+#learning page
 @app.route('/learningPage')
 @is_logged_in
 def learningPage():
     return render_template('learningPage.html')
 
-
+#quiz page
 @app.route('/quizPage')
 @is_logged_in
 def quizPage():
     return render_template('quizPage.html')
 
-
+#free style
 @app.route('/freestylePage')
 @is_logged_in
 def freestylePage():

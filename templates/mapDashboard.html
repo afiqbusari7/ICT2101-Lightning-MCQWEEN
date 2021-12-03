@@ -1,26 +1,8 @@
 {% extends 'layout.html' %}
 {% block body %}
-<style>
-* {
-  box-sizing: border-box;
-}
 
-.column {
-  float: left;
-  width: 33.33%;
-  padding: 5px;
-}
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mapDashboard.css') }}">
 
-/* Clearfix (clear floats) */
-.row::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-img {
-  border: 5px solid #555;
-}
-</style>
 <h1>Manage Maps</h1>
 <hr>
     <div class="row">
