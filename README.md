@@ -57,7 +57,8 @@ Only accessible by the Admin where he/she is able to upload new maps which are d
 ![Map Dashboard](./images/map_dashboard.png)
 
 ### User Acceptance Testing
-<Insert Video link here>
+Insert Video link here
+
 | ID  | Test Case Description | Precondition | Steps | Expected Result | Actual Result | P/F |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | ST1  | Opening the web application  | In Web Browser  | 1. Browse to web application URL 2. Observe screen  | Sees the Login Page  | Sees the Login Page  | P |
@@ -91,6 +92,7 @@ Only accessible by the Admin where he/she is able to upload new maps which are d
 | ST29  | Go to Map dashboard from Profile dashboard  | In Profile dashboard  | 1. Click the "Map Dashboard" button in the navigation bar<br />2. Observe screen  | Sees the Map dashboard Page  | Sees the Map dashboard Page  | P  |
 | ST30  | Go to Profile dashboard from Map dashboard  | In Map dashboard  | 1. Click the "Profile Dashboard" button in the navigation bar<br />2. Observe screen  | Sees the Profile dashboard Page  | Sees the Profile dashboard Page  | P  |
 | ST31  | Logout from Map dashboard  | In Map dashboard  | 1. Click the "Logout" button in the navigation bar<br />2. Observe screen  | Sees the Login Page  | Sees the Login Page  | P  |
+
 
 ## Whitebox Testing
 
