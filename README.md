@@ -5,6 +5,10 @@ Lightning MCQween is an interactive web portal for primary school students to le
 
 
 ## Prototype Implementation
+### Development Workflow
+![Development Workflow](./images/development_workflow.png)
+
+Listed below are all the pages of the web portal for students and Administrator. (How-To documentation)
 ### Student
 #### Student Dashboard:
 The student has to login using their accounts (Created by the Administrator). Once logged in, they will be able to see their student dashboard.
