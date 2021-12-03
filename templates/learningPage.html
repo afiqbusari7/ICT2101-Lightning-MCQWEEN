@@ -83,7 +83,7 @@
             </div>
 
             <div class="ex2" id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-            <a ><button class="button">Send command</button></a>
+        <a><button onclick="send()" class="button">Send command</button></a>
             <!-- <a><button onclick="validate()" class="button">Validate</button></a> -->
         </div>
 
@@ -91,7 +91,7 @@
 
     <div class="col-sm-3 sidenav">
         <h4>{% block left%} History Log{% endblock %}</h4>
-        <div class="well2">
+        <div id ="historywell" class="well2">
             <p>display from DB</p>
         </div>
 
@@ -334,6 +334,21 @@ function send() {
   var stringArray = textContent.split(/(\s+\s+)/);
   var newArr = stringArray.filter(function(entry) { return entry.trim() != ''; })
   console.log(newArr);
+    //clear send command box
+  document.getElementById("div2").innerHTML =""
+
+  //clear prev display on well
+  document.getElementById("historywell").innerHTML =""
+  //display on well
+  for (let i=0; i < newArr.length; i++){
+    document.getElementById("historywell").innerHTML += newArr[i] + "<br>"
+  }
+
+
+
+
+
+
 
 }
 
