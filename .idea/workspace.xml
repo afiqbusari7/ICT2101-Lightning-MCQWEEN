@@ -3,11 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="90661ad7-e6b7-431d-b1dd-cc2ce18c1d30" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/styles/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/styles/base.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/quiz1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/static/quiz1.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard_base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard_base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/learningPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/learningPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webPortal.py" beforeDir="false" afterPath="$PROJECT_DIR$/webPortal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/freestylePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/freestylePage.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
