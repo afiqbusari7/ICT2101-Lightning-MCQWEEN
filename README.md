@@ -92,7 +92,10 @@ Insert Video link here
 | ST29  | Go to Map dashboard from Profile dashboard  | In Profile dashboard  | 1. Click the "Map Dashboard" button in the navigation bar<br />2. Observe screen  | Sees the Map dashboard Page  | Sees the Map dashboard Page  | P  |
 | ST30  | Go to Profile dashboard from Map dashboard  | In Map dashboard  | 1. Click the "Profile Dashboard" button in the navigation bar<br />2. Observe screen  | Sees the Profile dashboard Page  | Sees the Profile dashboard Page  | P  |
 | ST31  | Logout from Map dashboard  | In Map dashboard  | 1. Click the "Logout" button in the navigation bar<br />2. Observe screen  | Sees the Login Page  | Sees the Login Page  | P  |
-
+| ST32  | Go through tutorial  | In Tutorial dashboard  | 1. Click through the tutorial steps to learn about the portal<br />2. Observe screen and click the next popup  | Walkthrough tutorial before accessing portal | Completed tutorial into portal  | P  |
+| ST33  | Attempting quiz with correct inputs  | In quiz dashboard  | 1. Drag and drop the correct commands box<br />2. Click send command<br />3. Observe screen  | Quiz complete and car moves | Quiz complete and car moves  | P  |
+| ST34  | Attempting quiz with wrong inputs  | In quiz dashboard  | 1. Drag and drop the correct commands box<br />2. Click send command<br />3. Observe screen  | Wrong answer and retry again | Wrong answer and retry again  | P  |
+| ST35  | Trying out freestyle mode  | In freestyle dashboard  | 1. Drag and drop the correct commands box<br />2. Click send command<br />3. Observe screen  | Command sent and car moves | Quiz complete and car moves  | P  |
 
 ## Whitebox Testing
 
