@@ -3,5 +3,11 @@
 {% block content %}
     <h1>{% block left %}History Log{% endblock %}</h1>
  <a>{% block button %}<button onclick="send()" class="button">Send Commands</button>{% endblock %}</a>
+ 
+ {% block gameArea %} 
+    myGameArea.clear();
+    myGamePiece.newPos();    
+    myGamePiece.update();
+{% endblock %}
 
 {% endblock %}

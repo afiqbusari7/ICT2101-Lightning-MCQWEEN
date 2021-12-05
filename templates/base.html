@@ -179,11 +179,12 @@ function component(width, height, color, x, y, type) {
 
 //Update the game area
 function updateGameArea() {
-    myGameArea.clear();
-    myBackground.newPos();
-    myBackground.update();
-    myGamePiece.newPos();    
-    myGamePiece.update();
+    // myGameArea.clear();
+    // myBackground.newPos();
+    // myBackground.update();
+    // myGamePiece.newPos();    
+    // myGamePiece.update();
+    {% block gameArea %} {% endblock %}
 }
 
 //move upwards in map
