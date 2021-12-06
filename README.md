@@ -58,7 +58,7 @@ Only accessible by the Admin where he/she is able to upload new maps which are d
 ![Map Dashboard](./images/map_dashboard.PNG)
 
 ### User Acceptance Testing
-Insert Video link here
+[![Watch the video](https://img.youtube.com/vi/enSM8fXKbDU/maxresdefault.jpg)](https://youtu.be/enSM8fXKbDU)
 
 | ID  | Test Case Description | Precondition | Steps | Expected Result | Actual Result | P/F |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
