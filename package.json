@@ -1,0 +1,23 @@
+{
+  "name": "afiqb",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/afiqbusari7/ICT2101-Lightning-MCQWEEN.git"
+  },
+  "bugs": {
+    "url": "https://github.com/afiqbusari7/ICT2101-Lightning-MCQWEEN/issues"
+  },
+  "homepage": "https://github.com/afiqbusari7/ICT2101-Lightning-MCQWEEN#readme",
+  "description": "",
+  "dependencies": {
+    "shepherd.js": "^8.3.1"
+  }
+}

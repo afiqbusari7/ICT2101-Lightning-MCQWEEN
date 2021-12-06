@@ -1,6 +1,208 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>MyLightningMcQween</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='node_modules/shepherd.js/dist/css/shepherd-theme-arrows.css') }}">
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/learning.css') }}">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="/js/learning.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='node_modules/popper.js/dist/umd/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='node_modules/shepherd.js/dist/js/shepherd.min.js') }}"></script>
 
-{% block content %}
-    <h1>{% block left %}Guide{% endblock %}</h1>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Varela+Round&display=swap" rel="stylesheet">
+  </head>
 
-{% endblock %}
+
+
+
+
+<body onload="startGame()">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{{ url_for('index')}}">MyLightningMcQween</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+         <li class="active"><a href="student_dashboard">Dashboard</a></li>
+          <li class="active"><a href="learningPage">Learning</a></li>
+          <li class="active"><a href="freestylePage">Freestyle</a></li>
+          <li class="active"><a href="freestylePage">Quiz</a></li>
+
+
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+      <li><a href="{{ url_for('logout')}}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid text-center">
+  <div class="row content">
+    <div class="col-sm-4 sidenav">
+      <h1>Car Status</h1>
+          <div class="well1">
+            <p>display car data here</p>
+          </div>
+    </div>
+    <div class="col-sm-4 text-center">
+      <h2>Map</h2>
+
+        <div id="container_canvas" class="container containerMap">
+          <!-- this is where the map is -->
+
+    </div>
+
+
+    <h3 class="first" >Send Commands!</h3>
+
+      <div id="drag" class="container containerCommands">
+            <div class="ex1" id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+              <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag1" class="box" style="background: #000099; color: white;"> Forward </div>
+              <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag2" class="box" style="background: #3399ff; color: white;"> Turn Right </div>
+              <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag3" class="box" style="background: #00cc88; color: white;"> Turn Left </div>
+              <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag4" class="box" style="background: #00e673; color: white;"> Reverse </div>
+              <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag5" class="box" style="background: #3399ff; color: white;"> Spin Right </div>
+              <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag6" class="box" style="background: #ff66d9; color: white;"> Spin Left </div>
+              <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag7" class="box" style="background: #cc6600; color: white;"> For 1 second </div>
+              <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag8" class="box" style="background: #ff9966; color: white;"> For 2 seconds </div>
+              <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag9" class="box" style="background: #9900ff; color: white;"> For 3 seconds </div>
+
+            </div>
+
+            <div class="ex2" id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <a><button onclick="send()" class="button">Send command</button></a>
+            <!-- <a><button onclick="validate()" class="button">Validate</button></a> -->
+        </div>
+
+    </div>
+
+    <div class="col-sm-3 sidenav">
+        <h4>{% block left%} History Log{% endblock %}</h4>
+        <div id ="historywell" class="well2">
+            <p>display from DB</p>
+        </div>
+
+    </div>
+</div>
+</div>
+
+  </body>
+
+
+    <main>
+
+    </main>
+  <script>
+
+        const tour = new Shepherd.Tour({
+            defaults: {
+                classes: 'shepherd-theme-arrows'
+            }
+        });
+
+        tour.addStep('example-step1', {
+        text: 'hhhhhhhhhhhhhhhh',
+        attachTo: '.well1 bottom',
+        buttons: [
+            {
+            text: 'Displays Car Status',
+            action: tour.next
+            }
+        ]
+        });
+         tour.addStep('example-step1', {
+        text: 'hhhhhhhhhhhhhhhh',
+        attachTo: '.well2 bottom',
+        buttons: [
+            {
+            text: 'Displays History',
+            action: tour.next
+            }
+        ]
+        });
+        tour.addStep('example-step1', {
+        text: 'hhhhhhhhhhhhhhhh',
+        attachTo: '.containerMap bottom',
+        buttons: [
+            {
+            text: 'Displays Car Map ',
+            action: tour.next
+            }
+        ]
+        });
+        tour.addStep('example-step1', {
+        text: 'hhhhhhhhhhhhhhhh',
+        attachTo: '.ex1 bottom',
+        buttons: [
+            {
+            text: 'Drag To Send Commands ',
+            action: tour.next
+            }
+        ]
+        });
+        tour.addStep('example-step1', {
+        text: 'hhhhhhhhhhhhhhhh',
+        attachTo: '.ex2 bottom',
+        buttons: [
+            {
+            text: 'Command Sent appears here ',
+            action: tour.next
+            }
+        ]
+        });
+
+
+        tour.addStep('example-step1', {
+        text: 'hhhhhhhhhhhhhhhhhhhhhhhhhhhhh',
+        attachTo: '.button top',
+        buttons: [
+            {
+            text: 'Click to submit command',
+            action: tour.next
+            }
+        ]
+        });
+        tour.addStep('example-step1', {
+        text: 'hhhhhhhhhhhhhhhhhhhhhhhhhhhhh',
+        attachTo: '.button top',
+        buttons: [
+            {
+            text: 'Click to submit command or validate here ',
+            action: tour.next
+            }
+        ]
+        });
+         tour.addStep('example-step1', {
+        text: 'hhhhhhhhhhhhhhhh',
+        attachTo: '.containerMap bottom',
+        buttons: [
+            {
+            text: 'Thats the end of the tour',
+            action: tour.next
+            }
+        ]
+        });
+
+
+        tour.start()
+
+
+    </script>
+
+</body>
+</html>
+
+

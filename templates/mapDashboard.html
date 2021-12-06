@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mapDashboard.css') }}">
+
+<h1>Manage Maps</h1>
+<hr>
+    <div class="row">
+        {% for maps in maps %}
+        <div class="column">
+            <h4>{{maps.replace('image/','').replace('.jpg','')}}</h4>
+            <img src="{{url_for('static', filename=maps)}}" alt="{{maps}}" style="width:100%">
+        </div>
+        {% endfor %}
+    </div>
+<h1>Add Map</h1>
+<form action="/uploadMap" method="POST" enctype="multipart/form-data">
+  <input type = "file" name = "file" onchange="return fileValidation()"/>
+  <input type = "submit" />
+</form>
+{% endblock %}
