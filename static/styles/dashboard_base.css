@@ -1,0 +1,127 @@
+    *{
+      font-family: 'Fredoka One', cursive;
+    }
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+      background-color: #800000;
+      color: white;
+    }
+    .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:focus, .navbar-inverse .navbar-nav > .active > a:hover {
+    color: #fff;
+    background-color: #800000;
+    }
+
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      height: 100%;
+    }
+    .well {
+    min-height: 200px;
+    padding: 19px;
+    margin-bottom: 70px;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    border-radius: 40px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+    }
+
+    /* Set red background color, white text and some padding */
+    footer {
+      background-color: #800000;
+      color: white;
+      padding: 20px;
+      position: fixed;
+      width: 100%;
+      bottom:0px;
+    }
+
+    body{
+    /*background: #f2f2f2;*/
+    background-image:url("https://cdn.suwalls.com/wallpapers/vector/footprints-in-the-desert-15396-1920x1080.jpg");
+    }
+
+    audio, canvas, progress, video {
+    display: inline-block;
+    vertical-align: baseline;
+    background-color: whitesmoke;
+    }
+    h1{
+      background-color: #800000;
+      color: white;
+      padding: 10px;
+      width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    h2{
+      text-align: left;
+      margin-left: 500px;
+      font-size: 30px;
+    }
+
+    .container{
+        width: 1000px;
+        margin-top: 60px;
+    }
+
+
+    .btn-group .button {
+      width: 200px;
+      margin-right: 50px;
+      background-color: #bfbfbf;
+      border: 1px solid black;
+      color: black;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      cursor: pointer;
+
+    }
+
+    .btn-caption .button{
+      width: 200px;
+      margin-right: 50px;
+      background-color: #f2f2f2;
+      border: 0px ;
+      color: black;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.3);
+
+    }
+
+    .btn-group .button:not(:last-child) {
+      border-right: none; /* Prevent double borders */
+    }
+
+    .btn-group .button:hover {
+      background-color: #808080;
+    }
+
+    .mode{
+      margin-top: 200px;
+      margin-bottom: 70px;
+    }
+
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;}
+    }
+    .col-sm-1{
+        /*background-color: red;*/
+    }

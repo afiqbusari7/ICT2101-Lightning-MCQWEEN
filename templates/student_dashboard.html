@@ -1,11 +1,10 @@
 {% extends 'dashboard_base.html' %}
 
 {% block body %}
-<small> Welcome {{session.email}}</small>
-    <hr>
+<p> Welcome {{session.email}}</p>
     <table class="table table-striped" style="width: 1000px; margin-left: auto;
-margin-right: auto; text-align: left;">
-    <tr>
+margin-right: auto; text-align: left; ">
+    <tr style="background: rgba(255, 255, 255, 0.6);">
       <th>studentID</th>
       <th>email</th>
       <th>Quiz Score</th>
