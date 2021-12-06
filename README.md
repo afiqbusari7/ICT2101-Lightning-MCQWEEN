@@ -97,3 +97,16 @@ Insert Video link here
 
 ## Whitebox Testing
 
+### Test Cases
+Due to the function that we chose for Whitebox Testing, the input is changing depending on user's input command. Hence we decided to do manual Whitebox Testing. The test cases are show in the image below. The test cases file can be found in the project folder, under 'testSuite' folder.
+![Test Cases](./images/Whitebox_TestCases.png)
+
+### How to run the test cases
+Simply open the project files in PyCharm or other IDE, install approriate packages and libraries. Run the project and navigate to quiz mode. 
+
+### Code Coverage Statistics
+In the function, there is a total of 167 lines of code (not including comments). While running the commands and code, it ran a total of 79 lines of code for each test cases. Hence the coverage would be 79/167 = 0.473. 
+Since our test case was manually tested, we generated the statistic manually by counting total numbers of line and counting each line that it executes.
+
+### Video
+![WatchVideo]https://youtu.be/ufHzvO1u1As
