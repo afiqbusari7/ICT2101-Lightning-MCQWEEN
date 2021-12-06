@@ -471,6 +471,13 @@ def quizPage():
 def freestylePage():
     return render_template('freestylePage.html')
 
+@app.route('/js/learning.js')
+def jsLearning():
+    return render_template('js/learning.js')
+
+@app.route('/js/base.js')
+def jsBase():
+    return render_template('js/base.js')
 
 if __name__ == '__main__':
     app.secret_key = 'secret123'
