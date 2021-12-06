@@ -306,7 +306,7 @@ def dashboard():
 
 # Edit Student Form Class
 class EditAccountForm(Form):
-    # email = StringField('Email', [validators.Email()])
+    email = StringField('Email', [validators.Email()])
     password = PasswordField('Password',
                              [validators.DataRequired(),
                               validators.EqualTo('confirm', message='Passwords do not match')

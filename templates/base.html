@@ -235,7 +235,7 @@ function validate() {
   textContent = get_data.textContent; //get text content only
   var stringArray = textContent.split(/(\s+\s+)/); //split elements into array 
   var newArr = stringArray.filter(function(entry) { return entry.trim() != ''; }) //remove empty strings
-  var quiz = ["Turn Right","Forward", "Turn Left"];
+  var quiz = ["Forward","For 3 seconds","Turn Right","Forward","For 1 second","Forward","For 3 second"];
   let x = 0;
 
     //For applying duration on movements
