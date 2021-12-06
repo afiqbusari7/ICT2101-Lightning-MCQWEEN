@@ -6,7 +6,8 @@ Lightning MCQween is an interactive web portal for primary school students to le
 
 ## Prototype Implementation
 ### Development Workflow
-![Development Workflow](./images/development_workflow.png)
+![Development Workflow](./images/Development_workflow1.png)
+![Development Workflow](./images/Development_workflow2.png)
 
 ### How to run
 1. Ensure that MySQL is installed and create the following database:
@@ -95,22 +96,22 @@ There are 3 Modes Available:
 2. Freestyle mode
 3. Quiz mode
 
-![Student Dashboard](./images/student_dashboard.png)
+![Student Dashboard](./images/student_dashboard.PNG)
 
 #### Learning mode
 The web portal redirects the student to learningPage.html when "Learning mode" is selected. The "Learning mode" will walk the student through each component
 of the page with simple explanations.The student has to click on the explanations to go to the next component to ensure that they have read them.
-![Learning Mode](./images/learning.png)
+![Learning Mode](./images/learning.PNG)
 
 #### Freestyle mode
 The web portal redirects the student to freestylePage.html when "Freestyle mode" is selected. The map will be displayed as an empty canvas to give
 students the freedom to control their car to go any direction using the available commands.
-![Freestyle Mode](./images/freestyle.png)
+![Freestyle Mode](./images/freestyle.PNG)
 
 #### Quiz mode
 The web portal redirects the student to quizPage.html when "Quiz mode" is selected. A map will be displayed for students to navigate the car through. The commands submitted
 by the student will be validated before sending them out to the car itself.
-![Quiz Mode](./images/quiz.png)
+![Quiz Mode](./images/quiz.PNG)
 
 ### Administrator
 #### Profile Dashboard
@@ -121,11 +122,11 @@ Only accessible by the Admin where he/she is able to create/edit/delete admin/st
 4. Account Status ( 0: Deactivated, 1: Active)
 5. Add Account form with the following data fields:
   - Email, Password, Confirm Password, Account Type
-![Profile Dashboard](./images/profile_dashboard.png)
+![Profile Dashboard](./images/profile_dashboard.PNG)
 
 #### Map Dashboard
 Only accessible by the Admin where he/she is able to upload new maps which are displayed in "Learning mode" and "Quiz Mode".
-![Map Dashboard](./images/map_dashboard.png)
+![Map Dashboard](./images/map_dashboard.PNG)
 
 ### User Acceptance Testing
 [![Watch the video](https://img.youtube.com/vi/enSM8fXKbDU/maxresdefault.jpg)](https://youtu.be/enSM8fXKbDU)
