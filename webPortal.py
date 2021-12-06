@@ -273,31 +273,41 @@ def dashboard():
                 email_value = cur.execute("SELECT email FROM student WHERE email=%s", [email])
                 if email_value > 0:
                     flash("User is already registered", 'danger')
-                    redirect(url_for('index'))
-                    return render_template('register.html', form=form)
+                    redirect(url_for('dashboard'))
+                    # return render_template('register.html', form=form)
                 else:
                     cur.execute(
                         "INSERT INTO Student(email, password, accountType, accountStatus, quizScore, quizProgress,tutorialProgress) VALUES (%s,%s,%s,%s,%s,%s,%s)",
                         (email, password, accountType, accountStatus, quizScore, quizProgress, tutorialProgress))
+                    # Commit to DB
+                    mysql.connection.commit()
+
+                    # Close Connection
+                    cur.close()
+
+                    flash("User Created", 'success')
+
+                    redirect(url_for('dashboard'))
+
             else:
                 email_value = cur.execute("SELECT email FROM admin WHERE email=%s", [email])
                 if email_value > 0:
                     flash("User is already registered", 'danger')
-                    redirect(url_for('index'))
-                    return render_template('register.html', form=form)
+                    redirect(url_for('dashboard'))
+                    # return render_template('register.html', form=form)
                 else:
                     cur.execute(
                         "INSERT INTO admin(email, password, accountType, accountStatus) VALUES (%s,%s,%s,%s)",
                         (email, password, accountType, accountStatus))
-            # Commit to DB
-            mysql.connection.commit()
+                    # Commit to DB
+                    mysql.connection.commit()
 
-            # Close Connection
-            cur.close()
+                    # Close Connection
+                    cur.close()
 
-            flash("User Created", 'success')
+                    flash("User Created", 'success')
 
-            redirect(url_for('dashboard'))
+                    redirect(url_for('dashboard'))
         return render_template('dashboard.html', data=studentDetails, form=form)
     else:
         msg = 'No Students Found'
@@ -306,15 +316,11 @@ def dashboard():
 
 # Edit Student Form Class
 class EditAccountForm(Form):
-    email = StringField('Email', [validators.Email()])
     password = PasswordField('Password',
                              [validators.DataRequired(),
                               validators.EqualTo('confirm', message='Passwords do not match')
                               ])
     confirm = PasswordField('Confirm Password')
-    # accountType = IntegerField('AccountType', [validators.number_range(min=0, max=0, message="Only 0 is allowed")])
-    # accountStatus = IntegerField('AccountStatus', [validators.number_range(min=0, max=1, message="Only 1 is allowed")])
-
 
 # Edit Accounts
 @app.route('/edit_accounts/<string:id>', methods=['GET', 'POST'])
@@ -324,8 +330,6 @@ def edit_accounts(id):
     # Create cursor
     form = EditAccountForm(request.form)
     cur = mysql.connection.cursor()
-    result = cur.execute("SELECT * FROM student WHERE studentID = %s", [id])
-    admin = cur.fetchone()
     if request.method == 'POST' and form.validate():
         password = sha256_crypt.encrypt(str(form.password.data))
         cur.execute("UPDATE student SET password=%s WHERE studentID=%s", (password, [id]))
