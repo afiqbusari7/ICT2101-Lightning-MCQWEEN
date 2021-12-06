@@ -33,10 +33,10 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-         <li class="active"><a href="/student_dashboard">Dashboard</a></li>
-          <li class="active"><a href="/learningPage">Learning</a></li>
-          <li class="active"><a href="/freestylePage">Freestyle</a></li>
-          <li class="active"><a href="/quizPage">Quiz</a></li>
+         <li class="active"><a href="student_dashboard">Dashboard</a></li>
+          <li class="active"><a href="learningPage">Learning</a></li>
+          <li class="active"><a href="freestylePage">Freestyle</a></li>
+          <li class="active"><a href="quizPage">Quiz</a></li>
 
 
       </ul>
@@ -86,7 +86,7 @@
               <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag7" class="box" style="background: #cc6600; color: white;"> For 1 second </div>
               <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag8" class="box" style="background: #ff9966; color: white;"> For 2 seconds </div>
               <div draggable="true" ondrop="dropNO(event)" ondragstart="drag(event)" id="drag9" class="box" style="background: #9900ff; color: white;"> For 3 seconds </div>
-              
+
             </div>
 
             <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
@@ -182,39 +182,39 @@ function updateGameArea() {
     // myGameArea.clear();
     // myBackground.newPos();
     // myBackground.update();
-    // myGamePiece.newPos();    
+    // myGamePiece.newPos();
     // myGamePiece.update();
     {% block gameArea %} {% endblock %}
 }
 
 //move upwards in map
 function moveup() {
-    myGamePiece.speedY = -1; 
+    myGamePiece.speedY = -1;
 }
 
 //move downwards in map
 //"Turn left + forward"
 //"Turn Right + reverse"
 function movedown() {
-    myGamePiece.speedY = 1; 
+    myGamePiece.speedY = 1;
 }
 
 //move left in map
 //Equivalent to "forward"
 function moveleft() {
-    myGamePiece.speedX = -1; 
+    myGamePiece.speedX = -1;
 }
 
 //move right in map
 //Equivalent to "reverse"
 function moveright() {
-    myGamePiece.speedX = 1; 
+    myGamePiece.speedX = 1;
 }
 
 //stop moving
 function clearmove() {
-    myGamePiece.speedX = 0; 
-    myGamePiece.speedY = 0; 
+    myGamePiece.speedX = 0;
+    myGamePiece.speedY = 0;
 }
 
 
@@ -233,12 +233,11 @@ function submit() {
 function validate() {
   var get_data=document.getElementById("div2"); //get "sent" commands from div2
   textContent = get_data.textContent; //get text content only
-  var stringArray = textContent.split(/(\s+\s+)/); //split elements into array 
+  var stringArray = textContent.split(/(\s+\s+)/); //split elements into array
   var newArr = stringArray.filter(function(entry) { return entry.trim() != ''; }) //remove empty strings
-  var quiz = ["Forward","For 3 seconds","Turn Right","Forward","For 1 second","Forward","For 3 second"];
+  var quiz = ["Forward","Turn Right", "Forward"];
   let x = 0;
-
-    //For applying duration on movements
+//For applying duration on movements
   var delay = ( function() {
       var timer = 0;
       return function(callback, ms) {
@@ -254,6 +253,25 @@ function validate() {
         }, i ); // end delay
 
   }
+
+  //Function to change direction to "turn right"
+  function changeRight(i){
+    delay(function(){
+            clearmove();
+            moveup();// go up
+            changeForward(i);
+        }, i ); // end delay
+  }
+
+  //  //Function to change direction to "Forward"
+  function changeForward(i){
+    delay(function(){
+            clearmove();
+            moveleft();// go forward
+            moveDuration(i);
+        }, i ); // end delay
+  }
+
 
 
 
@@ -293,8 +311,10 @@ function validate() {
   }
   if(x==quiz.length){
   //Go through the array of "sent" commands
-  alert("Congratulations Car is moving!");
+  alert("Congratulations Car You passed the Quiz!");
+ //Go through the array of "sent" commands
   for (let i=0; i < newArr.length; i++){
+
 
     //Forward movement + duration
     //If no duration sent, default is 1000ms
@@ -308,7 +328,19 @@ function validate() {
       }else if(newArr[i+1]=="For 3 seconds"){
         moveleft();
         moveDuration(3000);
-      }else{
+      }
+      //IMPTTTT
+      else if(newArr[i+1]=="Reverse"){
+        moveleft();
+        changeDirection(3000);
+        //newArr.splice(i+1, 1);
+        break;
+      }else if(newArr[i+1]=="Turn Right"){
+        moveleft();
+        changeRight(3000);
+        newArr.splice(i+2, 1);
+      }
+      else{
         moveleft();
         moveDuration(1000);
       }
@@ -412,7 +444,9 @@ function validate() {
       }
 
     }
+
   }
+
 
   }
 }
