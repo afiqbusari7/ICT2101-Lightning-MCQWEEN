@@ -98,7 +98,7 @@ Insert Video link here
 ## Whitebox Testing
 
 ### Test Cases
-Due to the function that we chose for Whitebox Testing, the input is changing depending on user's input command. Hence we decided to do manual Whitebox Testing. The test cases are show in the image below. The test cases file can be found in the project folder, under 'testSuite' folder.
+Due to the function that we chose for Whitebox Testing, the input is changing depending on user's input command. Hence we decided to do manual Whitebox Testing. The test cases are show in the image below. The test cases file can be found in the project folder, under 'testSuite' folder.<br>
 ![Test Cases](./images/Whitebox_TestCases.png)
 
 ### How to run the test cases
@@ -109,4 +109,4 @@ In the function, there is a total of 167 lines of code (not including comments).
 Since our test case was manually tested, we generated the statistic manually by counting total numbers of line and counting each line that it executes.
 
 ### Video
-![WatchVideo]https://youtu.be/ufHzvO1u1As
+[![Watch the video](https://img.youtube.com/vi/ufHzvO1u1As/maxresdefault.jpg)](https://youtu.be/ufHzvO1u1As)
