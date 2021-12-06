@@ -92,10 +92,19 @@ Insert Video link here
 | ST29  | Go to Map dashboard from Profile dashboard  | In Profile dashboard  | 1. Click the "Map Dashboard" button in the navigation bar<br />2. Observe screen  | Sees the Map dashboard Page  | Sees the Map dashboard Page  | P  |
 | ST30  | Go to Profile dashboard from Map dashboard  | In Map dashboard  | 1. Click the "Profile Dashboard" button in the navigation bar<br />2. Observe screen  | Sees the Profile dashboard Page  | Sees the Profile dashboard Page  | P  |
 | ST31  | Logout from Map dashboard  | In Map dashboard  | 1. Click the "Logout" button in the navigation bar<br />2. Observe screen  | Sees the Login Page  | Sees the Login Page  | P  |
-| ST32  | Go through tutorial  | In Tutorial dashboard  | 1. Click through the tutorial steps to learn about the portal<br />2. Observe screen and click the next popup  | Walkthrough tutorial before accessing portal | Completed tutorial into portal  | P  |
-| ST33  | Attempting quiz with correct inputs  | In quiz dashboard  | 1. Drag and drop the correct commands box<br />2. Click send command<br />3. Observe screen  | Quiz complete and car moves | Quiz complete and car moves  | P  |
-| ST34  | Attempting quiz with wrong inputs  | In quiz dashboard  | 1. Drag and drop the correct commands box<br />2. Click send command<br />3. Observe screen  | Wrong answer and retry again | Wrong answer and retry again  | P  |
-| ST35  | Trying out freestyle mode  | In freestyle dashboard  | 1. Drag and drop the correct commands box<br />2. Click send command<br />3. Observe screen  | Command sent and car moves | Quiz complete and car moves  | P  |
+| ST32  | Go through tutorial  | In Learning Page  | 1. Click through the tutorial steps to learn about the portal<br />2. Observe screen and click the next popup  | Walkthrough tutorial before accessing portal | Completed tutorial into portal  | P  |
+| ST33  | Attempting quiz with correct inputs  | In Quiz Page  | 1. Drag and drop the correct commands box<br />2. Click send command<br />3. Observe screen  | Quiz complete and car moves | Quiz complete and car moves  | P  |
+| ST34  | Attempting quiz with wrong inputs  | In Quiz Page  | 1. Drag and drop the correct commands box<br />2. Click send command<br />3. Observe screen  | Wrong answer and retry again | Wrong answer and retry again  | P  |
+| ST35  | Trying out freestyle mode  | In Freestyle Page  | 1. Drag and drop commands into command box<br />2. Click send command<br />3. Observe screen  | Command sent and car moves | Quiz complete and car moves  | P  |
+| ST36  | Admin Upload Map  | In Map dashboard  | 1. Click upload file button<br />2. Choose file to upload<br />3. Upload Map Successful  | Map Successfully Uploaded | Map Successfully Uploaded  | P  |
+| ST37  | Admin Upload Invalid Map  | In Map dashboard  | 1. Click upload file button<br />2. Choose file to upload<br />3. Error Uploading Map  | Error Uploading Map Alert | Error Uploading Map Alert  | P  |
+| ST38  | Admin Adds new student   | In Profile dashboard  | 1. Fills up the form for the new student <br />2. Clicks submit<br />3. User Created  | User Created Alert | User Created Alert  | P  |
+| ST39  | Admin Adds existing student   | In Profile dashboard  | 1. Fills up the form for the new student but with existing email <br />2. Clicks submit<br />3. User already existed | User Existed Alert | User Existed Alert  | P  |
+| ST40  | Admin Adds student with invalid field   | In Profile dashboard  | 1. Fills up the form for the new student with invalid fields<br />2. Clicks submit<br />3. Invalid Fields Inputted  | Invalid Fields Inputted | Invalid Fields Inputted  | P  |
+| ST41  | Inactive account is not allowed to login  | In Login Page  | 1. Enter existing account credentials<br />2. Clicks Login<br />3. Observe the screen  | Error logging in | Error Logging in  | P  |
+| ST42  | Admin switching account statuses  | In Profile Dashboard  | 1. Clicks Activate/DeActivate Account<br />2. Observe the screen  | Switching of statuses | Switching of statuses  | P  |
+| ST43  | Admin edits student password with matching passwords  | In Profile Dashboard  | 1. Clicks Edit button in the account<br />2. Fills up the change password form<br />3. Clicks submit button<br />4. Password Updated   | Password Updated | Password Updated  | P  |
+| ST44  | Admin edits student password with not matching passwords  | In Profile Dashboard  | 1. Clicks Edit button in the account<br />2. Fills up the change password form<br />3. Clicks submit button<br />4. Password Not Matching   | Password Not Matching | Password Not Matching  | P  |
 
 ## Whitebox Testing
 
